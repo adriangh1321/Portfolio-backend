@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -45,9 +46,10 @@ public class Portfolio {
     @Column(name = "about_me")
     private String aboutMe;
 
-//    @OneToOne
-//    @JoinColumn(name="current_company_id")
-//    private CurrentCompany currentCompany;
+    @OneToOne
+    @JoinColumn(name="current_company_id")
+    private CurrentCompany currentCompany;
+    
 //    @OneToOne
 //    @JoinColumn(name="contact_information_id")
 //    private Contactinformation information;
