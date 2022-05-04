@@ -50,7 +50,7 @@ public class Portfolio {
     @JoinColumn(name="current_company_id")
     private CurrentCompany currentCompany;
     
-//    @OneToOne
-//    @JoinColumn(name="contact_information_id")
-//    private Contactinformation information;
+    @OneToOne
+    @JoinColumn(name="contact_information_id")
+    private ContactInformation information;
 }
