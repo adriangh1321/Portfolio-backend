@@ -17,7 +17,7 @@ public class ContactInformationServiceImpl implements ContactInformationService 
     @Override
     public ContactInformationDto getById(Long id) {
         ContactInformationDto dto = this.contactInformationRepository.findById(id)
-                .map(contact -> this.contactInformationMapper.toContactInformationDto(contact))
+                .map(entity -> this.contactInformationMapper.toContactInformationDto(entity))
                 .orElseThrow();
         return dto;
     }
