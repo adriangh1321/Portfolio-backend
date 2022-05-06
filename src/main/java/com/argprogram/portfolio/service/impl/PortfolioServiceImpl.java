@@ -43,6 +43,8 @@ public class PortfolioServiceImpl implements PortfolioService {
         dto.setEducations(this.educationService.getAllByPortfolioId(id));
         dto.setExperiences(this.experienceService.getAllByPortfolioId(id));
         dto.setSkills(this.skillService.getAllByPortfolioId(id));
+        dto.setSkills(this.skillService.getAllByPortfolioId(id));
+        
         
         return dto;
     }
