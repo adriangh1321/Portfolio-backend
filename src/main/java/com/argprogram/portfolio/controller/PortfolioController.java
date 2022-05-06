@@ -18,7 +18,7 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<PortfolioDto> getOnebyId(@PathVariable Long id) {
+    public ResponseEntity<PortfolioDto> getOneById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getById(id));
     }
 
