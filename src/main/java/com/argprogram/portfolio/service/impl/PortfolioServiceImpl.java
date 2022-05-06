@@ -1,12 +1,7 @@
 package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.PortfolioDto;
-import com.argprogram.portfolio.mapper.EducationMapper;
-import com.argprogram.portfolio.mapper.ExperienceMapper;
-import com.argprogram.portfolio.mapper.InterestMapper;
 import com.argprogram.portfolio.mapper.PortfolioMapper;
-import com.argprogram.portfolio.mapper.ProjectMapper;
-import com.argprogram.portfolio.mapper.SkillMapper;
 import com.argprogram.portfolio.repository.PortfolioRepository;
 import com.argprogram.portfolio.service.EducationService;
 import com.argprogram.portfolio.service.ExperienceService;
@@ -23,11 +18,6 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
     private final PortfolioMapper portfolioMapper;
-    private final ExperienceMapper experienceMapper;
-    private final EducationMapper educationMapper;
-    private final SkillMapper skillMapper;
-    private final ProjectMapper projectMapper;
-    private final InterestMapper interestMapper;
     private final ExperienceService experienceService;
     private final EducationService educationService;
     private final SkillService skillService;
