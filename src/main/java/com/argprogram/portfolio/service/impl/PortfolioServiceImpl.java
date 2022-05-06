@@ -40,6 +40,9 @@ public class PortfolioServiceImpl implements PortfolioService {
                 .map(entity -> this.portfolioMapper.toPortfolioDto(entity))
                 .orElseThrow();
         
+        dto.setEducations(this.educationService.getAllByPortfolioId(id));
+        dto.setExperiences(this.experienceService.getAllByPortfolioId(id));
+        
         return dto;
     }
 
