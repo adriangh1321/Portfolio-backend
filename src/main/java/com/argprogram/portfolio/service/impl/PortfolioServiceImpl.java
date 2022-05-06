@@ -39,13 +39,13 @@ public class PortfolioServiceImpl implements PortfolioService {
         PortfolioDto dto = this.portfolioRepository.findById(id)
                 .map(entity -> this.portfolioMapper.toPortfolioDto(entity))
                 .orElseThrow();
-        
+
         dto.setEducations(this.educationService.getAllByPortfolioId(id));
         dto.setExperiences(this.experienceService.getAllByPortfolioId(id));
         dto.setSkills(this.skillService.getAllByPortfolioId(id));
-        dto.setSkills(this.skillService.getAllByPortfolioId(id));
-        
-        
+        dto.setProjects(this.projectService.getAllByPortfolioId(id));
+        dto.setInterests(this.interestService.getAllByPortfolioId(id));
+
         return dto;
     }
 
