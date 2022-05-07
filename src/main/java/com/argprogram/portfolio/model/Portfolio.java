@@ -61,7 +61,7 @@ public class Portfolio {
 
     @OneToOne
     @JoinColumn(name = "contact_information_id")
-    private ContactInformation information;
+    private ContactInformation contactInformation;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate

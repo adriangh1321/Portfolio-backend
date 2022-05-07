@@ -15,6 +15,8 @@ public class SkillDto {
     private Long id;
 
     private SkillType type;
+    
+    private String name;
 
     @Max(value = 100, message = "The percent cannot be greater than 100")
     @Min(value = 0, message = "The percent cannot be less than 100")
