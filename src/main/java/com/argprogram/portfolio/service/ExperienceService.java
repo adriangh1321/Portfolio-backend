@@ -11,4 +11,8 @@ public interface ExperienceService {
     
     List<ExperienceDto> getAllByPortfolioId(Long id);
     
+    List<ExperienceDto> getAll();
+    
+    void update(Long id,ExperienceDto dto);
+    
 }
