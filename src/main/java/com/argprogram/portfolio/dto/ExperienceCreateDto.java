@@ -1,3 +1,4 @@
+
 package com.argprogram.portfolio.dto;
 
 import javax.validation.constraints.NotBlank;
@@ -10,10 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExperienceDto {
-    
-    private Long id;
-    
+public class ExperienceCreateDto {
+
     @NotBlank
     private String position;
 
@@ -24,8 +23,7 @@ public class ExperienceDto {
     private String description;
 
     private String image;
-    
-    @NotNull
+
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "The date format must be yyyy-MM-dd")
     private String startDate;
 
@@ -37,6 +35,8 @@ public class ExperienceDto {
 
     @NotBlank
     private String country;
-  
+    
+    @NotNull
+    private Long idPortfolio;
 
 }

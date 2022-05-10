@@ -1,10 +1,13 @@
 package com.argprogram.portfolio.service.impl;
 
+import com.argprogram.portfolio.dto.ExperienceCreateDto;
 import com.argprogram.portfolio.dto.ExperienceDto;
 import com.argprogram.portfolio.mapper.ExperienceMapper;
 import com.argprogram.portfolio.model.Experience;
+import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.repository.ExperienceRepository;
 import com.argprogram.portfolio.service.ExperienceService;
+import com.argprogram.portfolio.service.PortfolioService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
@@ -19,6 +22,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     private final ExperienceRepository experienceRepository;
     private final ExperienceMapper experienceMapper;
+    private final PortfolioService portfolioService;
 
     @Override
     public ExperienceDto getById(Long id) {
@@ -55,12 +59,22 @@ public class ExperienceServiceImpl implements ExperienceService {
                     experience.setState(dto.getState());
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
                     experience.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
-                    experience.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
+                    if (dto.getEndDate() != null) {
+                        experience.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
+                    }
 
                     return this.experienceRepository.save(experience);
                 })
                 .orElseThrow();
 
+    }
+
+    @Override
+    public void save(ExperienceCreateDto dto) {
+        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+        Experience experience = this.experienceMapper.toExperience(dto);
+        experience.setPortfolio(portfolio);
+        this.experienceRepository.save(experience);
     }
 
 }
