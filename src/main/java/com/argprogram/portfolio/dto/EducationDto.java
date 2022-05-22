@@ -1,15 +1,28 @@
 package com.argprogram.portfolio.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class EducationDto {
+
+    public EducationDto(
+            @JsonProperty(value = "id", required = false) Long id,
+            @JsonProperty(value = "title", required = true)String title,
+            @JsonProperty(value = "institute", required = true)String institute,
+            @JsonProperty(value = "startDate", required = true)String startDate,
+            @JsonProperty(value = "endDate", required = true)String endDate,
+            @JsonProperty(value = "image", required = true)String image) {
+        this.id = id;
+        this.title = title;
+        this.institute = institute;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.image = image;
+    }
+        
 
     private Long id;
     
