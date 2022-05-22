@@ -18,4 +18,6 @@ public interface ExperienceService {
     
     void save(ExperienceCreateDto dto);
     
+    void delete(Long id);
+    
 }

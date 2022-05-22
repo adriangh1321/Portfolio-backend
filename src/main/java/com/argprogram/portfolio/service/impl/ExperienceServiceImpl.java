@@ -2,6 +2,7 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.ExperienceCreateDto;
 import com.argprogram.portfolio.dto.ExperienceDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.ExperienceMapper;
 import com.argprogram.portfolio.model.Experience;
 import com.argprogram.portfolio.model.Portfolio;
@@ -59,10 +60,12 @@ public class ExperienceServiceImpl implements ExperienceService {
                     experience.setState(dto.getState());
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
                     experience.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
-                    if (dto.getEndDate() != null) {
+                    if (dto.getEndDate() == null) {
+                        experience.setEndDate(null);
+                    }else{
                         experience.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
                     }
-
+                    
                     return this.experienceRepository.save(experience);
                 })
                 .orElseThrow();
@@ -75,6 +78,12 @@ public class ExperienceServiceImpl implements ExperienceService {
         Experience experience = this.experienceMapper.toExperience(dto);
         experience.setPortfolio(portfolio);
         this.experienceRepository.save(experience);
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.experienceRepository.findById(id).ifPresent(this.experienceRepository::delete);
+                
     }
 
 }
