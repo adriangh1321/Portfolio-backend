@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.argprogram.portfolio.controller;
 
-/**
- *
- * @author adria
- */
+import com.argprogram.portfolio.service.EducationService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/v1/educations")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class EducationController {
+    
+    private final EducationService educationService;
+    
     
 }
