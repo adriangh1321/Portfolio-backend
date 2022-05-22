@@ -1,12 +1,8 @@
 package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.PortfolioDto;
-import com.argprogram.portfolio.mapper.EducationMapper;
-import com.argprogram.portfolio.mapper.ExperienceMapper;
-import com.argprogram.portfolio.mapper.InterestMapper;
 import com.argprogram.portfolio.mapper.PortfolioMapper;
-import com.argprogram.portfolio.mapper.ProjectMapper;
-import com.argprogram.portfolio.mapper.SkillMapper;
+import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.repository.PortfolioRepository;
 import com.argprogram.portfolio.service.EducationService;
 import com.argprogram.portfolio.service.ExperienceService;
@@ -15,24 +11,33 @@ import com.argprogram.portfolio.service.PortfolioService;
 import com.argprogram.portfolio.service.ProjectService;
 import com.argprogram.portfolio.service.SkillService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+
 public class PortfolioServiceImpl implements PortfolioService {
 
-    private final PortfolioRepository portfolioRepository;
-    private final PortfolioMapper portfolioMapper;
-    private final ExperienceMapper experienceMapper;
-    private final EducationMapper educationMapper;
-    private final SkillMapper skillMapper;
-    private final ProjectMapper projectMapper;
-    private final InterestMapper interestMapper;
-    private final ExperienceService experienceService;
-    private final EducationService educationService;
-    private final SkillService skillService;
-    private final ProjectService projectService;
-    private final InterestService interestService;
+    @Autowired
+    private PortfolioRepository portfolioRepository;
+    @Autowired
+    private PortfolioMapper portfolioMapper;
+    @Autowired
+    @Lazy
+    private ExperienceService experienceService;
+    @Autowired
+    @Lazy
+    private EducationService educationService;
+    @Autowired
+    @Lazy
+    private SkillService skillService;
+    @Autowired
+    @Lazy
+    private ProjectService projectService;
+    @Autowired
+    @Lazy
+    private InterestService interestService;
 
     @Override
     public PortfolioDto getById(Long id) {
@@ -47,6 +52,12 @@ public class PortfolioServiceImpl implements PortfolioService {
         dto.setInterests(this.interestService.getAllByPortfolioId(id));
 
         return dto;
+    }
+
+    @Override
+    public Portfolio getPortfolioById(Long id) {
+        return this.portfolioRepository.findById(id).orElseThrow();
+
     }
 
 }

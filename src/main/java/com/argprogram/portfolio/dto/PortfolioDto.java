@@ -36,7 +36,7 @@ public class PortfolioDto {
 
     private CurrentCompanyDto currentCompany;
 
-    private ContactInformationDto information;
+    private ContactInformationDto contactInformation;
 
     private List<ExperienceDto> experiences = new ArrayList();
 
