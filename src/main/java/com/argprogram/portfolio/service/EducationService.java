@@ -12,5 +12,7 @@ public interface EducationService {
     
     List<EducationDto> getAllByPortfolioId(Long id);
     
+    List<EducationDto> getAll();
+    
     void save(EducationCreateDto dto);
 }

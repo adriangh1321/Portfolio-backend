@@ -46,4 +46,11 @@ public class EducationServiceImpl implements EducationService {
         this.educationRepository.save(education);
     }
 
+    @Override
+    public List<EducationDto> getAll() {
+    return this.educationRepository.findAll().stream()
+                .map(entity -> this.educationMapper.toEducationDto(entity))
+                .collect(Collectors.toList());
+    }
+
 }
