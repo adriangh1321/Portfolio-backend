@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,6 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @SQLDelete(sql = "UPDATE educations SET deleted_at=CURDATE() , is_active=false WHERE id = ?")
+@Where(clause = "is_active = true")
 @Getter
 @Setter
 @AllArgsConstructor

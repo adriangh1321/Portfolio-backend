@@ -53,4 +53,9 @@ public class EducationServiceImpl implements EducationService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void delete(Long id) {
+         this.educationRepository.findById(id).ifPresent(this.educationRepository::delete);
+    }
+
 }

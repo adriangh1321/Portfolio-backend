@@ -15,4 +15,6 @@ public interface EducationService {
     List<EducationDto> getAll();
     
     void save(EducationCreateDto dto);
+    
+    void delete(Long id);
 }
