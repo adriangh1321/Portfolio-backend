@@ -1,4 +1,3 @@
-
 package com.argprogram.portfolio.controller;
 
 import com.argprogram.portfolio.dto.EducationCreateDto;
@@ -25,33 +24,33 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 public class EducationController {
-    
+
     private final EducationService educationService;
-    
-     @GetMapping(params = "portfolioId")
+
+    @GetMapping(params = "portfolioId")
     public ResponseEntity<List<EducationDto>> getAllByPortfolioId(@RequestParam("portfolioId") Long portfolioId) {
         return ResponseEntity.status(HttpStatus.OK).body(this.educationService.getAllByPortfolioId(portfolioId));
     }
-    
+
     @GetMapping
-    public ResponseEntity<List<EducationDto>> getAll(){
+    public ResponseEntity<List<EducationDto>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(this.educationService.getAll());
     }
-    
-     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody @Valid  EducationDto dto){
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid EducationDto dto) {
         this.educationService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-    
+
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid EducationCreateDto dto){
+    public ResponseEntity<Void> save(@RequestBody @Valid EducationCreateDto dto) {
         this.educationService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.educationService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

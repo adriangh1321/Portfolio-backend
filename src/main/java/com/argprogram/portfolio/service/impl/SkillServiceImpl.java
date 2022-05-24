@@ -1,19 +1,13 @@
 package com.argprogram.portfolio.service.impl;
 
-import com.argprogram.portfolio.dto.EducationCreateDto;
-import com.argprogram.portfolio.dto.EducationDto;
 import com.argprogram.portfolio.dto.SkillCreateDto;
 import com.argprogram.portfolio.dto.SkillDto;
 import com.argprogram.portfolio.mapper.SkillMapper;
-import com.argprogram.portfolio.model.Education;
 import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.model.Skill;
 import com.argprogram.portfolio.repository.SkillRepository;
 import com.argprogram.portfolio.service.PortfolioService;
 import com.argprogram.portfolio.service.SkillService;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
