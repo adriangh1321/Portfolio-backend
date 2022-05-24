@@ -1,8 +1,9 @@
+
 package com.argprogram.portfolio.controller;
 
-import com.argprogram.portfolio.dto.EducationCreateDto;
-import com.argprogram.portfolio.dto.EducationDto;
-import com.argprogram.portfolio.service.EducationService;
+import com.argprogram.portfolio.dto.ProjectCreateDto;
+import com.argprogram.portfolio.dto.ProjectDto;
+import com.argprogram.portfolio.service.ProjectService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,38 +21,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/educations")
+@RequestMapping("/v1/projects")
 @CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
-public class EducationController {
-
-    private final EducationService educationService;
-
+public class ProjectController {
+    
+    private final ProjectService projectService;
+    
     @GetMapping(params = "portfolioId")
-    public ResponseEntity<List<EducationDto>> getAllByPortfolioId(@RequestParam("portfolioId") Long portfolioId) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.educationService.getAllByPortfolioId(portfolioId));
+    public ResponseEntity<List<ProjectDto>> getAllByPortfolioId(@RequestParam("portfolioId") Long portfolioId) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.projectService.getAllByPortfolioId(portfolioId));
     }
 
     @GetMapping
-    public ResponseEntity<List<EducationDto>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(this.educationService.getAll());
+    public ResponseEntity<List<ProjectDto>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.projectService.getAll());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid EducationDto dto) {
-        this.educationService.update(id, dto);
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid ProjectDto dto) {
+        this.projectService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid EducationCreateDto dto) {
-        this.educationService.save(dto);
+    public ResponseEntity<Void> save(@RequestBody @Valid ProjectCreateDto dto) {
+        this.projectService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        this.educationService.delete(id);
+        this.projectService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
