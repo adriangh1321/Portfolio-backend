@@ -94,4 +94,12 @@ public class PortfolioServiceImpl implements PortfolioService {
         return dto;
     }
 
+    @Override
+    public PortfolioBasicDto getBasicInfo(Long id) {
+        PortfolioBasicDto dto = this.portfolioRepository.findById(id)
+                .map(entity -> this.portfolioMapper.toPortfolioBasicDto(entity))
+                .orElseThrow();
+        return dto;
+    }
+
 }
