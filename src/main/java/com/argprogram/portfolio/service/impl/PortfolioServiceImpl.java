@@ -86,4 +86,12 @@ public class PortfolioServiceImpl implements PortfolioService {
                 .orElseThrow();
     }
 
+    @Override
+    public PortfolioAboutDto getAboutMe(Long id) {
+        PortfolioAboutDto dto = this.portfolioRepository.findById(id)
+                .map(entity -> this.portfolioMapper.toPortfolioAboutDto(entity))
+                .orElseThrow();
+        return dto;
+    }
+
 }

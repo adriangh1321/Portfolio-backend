@@ -16,4 +16,6 @@ public interface PortfolioService {
     void patch(Long id,PortfolioBasicDto dto);
     
     void patchAboutMe(Long id,PortfolioAboutDto dto);
+    
+    PortfolioAboutDto getAboutMe(Long id);
 }
