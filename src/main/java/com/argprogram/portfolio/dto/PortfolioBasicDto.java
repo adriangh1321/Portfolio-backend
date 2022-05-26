@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Data
 public class PortfolioBasicDto {
+    
+    private Long id;
 
     @NullOrNotBlank
     private String firstname;
@@ -25,6 +27,7 @@ public class PortfolioBasicDto {
     private String image;
 
     public PortfolioBasicDto(
+            @JsonProperty(value = "id", required = false) Long id,
             @JsonProperty(value = "firstname", required = true) String firstname,
             @JsonProperty(value = "lastname", required = true) String lastname,
             @JsonProperty(value = "ocupation", required = true) String ocupation,

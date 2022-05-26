@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,7 @@ public class Portfolio {
     private String state;
 
     @Column(name = "image")
+    @Lob
     private String image;
 
     @Column(name = "about_me")
