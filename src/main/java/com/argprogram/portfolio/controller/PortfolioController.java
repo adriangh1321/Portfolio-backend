@@ -1,5 +1,6 @@
 package com.argprogram.portfolio.controller;
 
+import com.argprogram.portfolio.dto.CurrentCompanyDto;
 import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
@@ -48,5 +49,5 @@ public class PortfolioController {
     public ResponseEntity<PortfolioBasicDto> getBasicInfo(@PathVariable Long id){
         return ResponseEntity.ok(this.portfolioService.getBasicInfo(id));
     }
-
-}
+    
+  }
