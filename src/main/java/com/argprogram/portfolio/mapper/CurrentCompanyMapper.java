@@ -9,6 +9,5 @@ import org.mapstruct.Mapper;
 public interface CurrentCompanyMapper {
     
     CurrentCompanyDto toCurrentCompanyDto(CurrentCompany currentCompany);
-    
-    CurrentCompany toCurrentoCompany(CurrentCompanyDto currentCompanyDto);
+      
 }
