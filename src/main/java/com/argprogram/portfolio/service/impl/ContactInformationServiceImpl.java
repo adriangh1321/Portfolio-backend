@@ -22,4 +22,17 @@ public class ContactInformationServiceImpl implements ContactInformationService 
         return dto;
     }
 
+    @Override
+    public void update(Long id, ContactInformationDto dto) {
+        this.contactInformationRepository.findById(id)
+                .map(contactInformation -> {
+                    contactInformation.setPhone(dto.getPhone());
+                    contactInformation.setEmail(dto.getEmail());
+                    contactInformation.setLinkedIn(dto.getLinkedIn());
+                    contactInformation.setRemoteRepository(dto.getRemoteRepository());
+                    return this.contactInformationRepository.save(contactInformation);
+                })
+                .orElseThrow();
+    }
+
 }
