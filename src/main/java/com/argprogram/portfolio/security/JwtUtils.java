@@ -1,6 +1,4 @@
-
 package com.argprogram.portfolio.security;
-
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +12,6 @@ import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
 
 @Component
 public class JwtUtils {
@@ -48,12 +45,11 @@ public class JwtUtils {
     /**
      * Extracts specific information from token (e.g. subject or expiration)
      *
-     * @param token          the jwt token as String
+     * @param token the jwt token as String
      * @param claimsResolver to get the required part of claimsResolver
      * @param <T>
      * @return the specific part
      */
-
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -65,7 +61,6 @@ public class JwtUtils {
      * @param token the jwt token as String
      * @return the Claims of token
      */
-
     private Claims extractAllClaims(String token) {
 
         return Jwts.parser().setSigningKey(this.SECRET_KEY).parseClaimsJws(token).getBody();
@@ -75,15 +70,16 @@ public class JwtUtils {
      * Check if the token has expired.
      *
      * @param token the jwt token as String
-     * @return the boolean true if expiration date of token is before to currently date otherwise it is false.
+     * @return the boolean true if expiration date of token is before to
+     * currently date otherwise it is false.
      */
-
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
     /**
-     * Creates a token during sign in. This method is called from Authentication Controller.
+     * Creates a token during sign in. This method is called from Authentication
+     * Controller.
      *
      * @param userDetails the data user who is sign in as UserDetails
      * @return the jwt token as String
@@ -94,17 +90,16 @@ public class JwtUtils {
     }
 
     /**
-     * While creating the token -
-     * 1. Define  claims of the token, like Issuer, Expiration, Subject, and the ID
-     * 2. Sign the JWT using the HS256 algorithm and secret key.
-     * 3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
+     * While creating the token - 1. Define claims of the token, like Issuer,
+     * Expiration, Subject, and the ID 2. Sign the JWT using the HS256 algorithm
+     * and secret key. 3. According to JWS Compact
+     * Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
      * compaction of the JWT to a URL-safe string.
      *
-     * @param claims  the Claims of token as Map
+     * @param claims the Claims of token as Map
      * @param subject the subject as String
      * @return the token as String
      */
-
     private String createToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
@@ -115,7 +110,7 @@ public class JwtUtils {
     /**
      * Check if the token is valid. It's called from JwtRequestFilter
      *
-     * @param token       the token as String
+     * @param token the token as String
      * @param userDetails the user information as UserDetails
      * @return the boolean true if the token is valid otherwise is false
      */
