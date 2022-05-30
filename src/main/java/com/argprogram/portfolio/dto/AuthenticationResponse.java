@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationResponse {
     
-    private Long idPortfolio;
-    
+    private String email;
+
     private String jwt;
     
 }

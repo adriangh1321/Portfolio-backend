@@ -16,7 +16,7 @@ public class RegisterRequest {
     
     @NotNull(message = "Username must not be null")
     @Email(message = "Username must be an email")
-    private String username;
+    private String email;
     
     @NotBlank(message = "Password must have no spaces") 
     @Size(min = 8,max = 16, message = "The password must be between 8 and 16 characters long")

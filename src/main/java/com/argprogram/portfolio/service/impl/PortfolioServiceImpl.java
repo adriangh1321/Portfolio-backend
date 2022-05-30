@@ -5,7 +5,10 @@ import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
 import com.argprogram.portfolio.mapper.PortfolioMapper;
+import com.argprogram.portfolio.model.ContactInformation;
+import com.argprogram.portfolio.model.CurrentCompany;
 import com.argprogram.portfolio.model.Portfolio;
+import com.argprogram.portfolio.model.User;
 import com.argprogram.portfolio.repository.PortfolioRepository;
 import com.argprogram.portfolio.service.EducationService;
 import com.argprogram.portfolio.service.ExperienceService;
@@ -20,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service
 
 public class PortfolioServiceImpl implements PortfolioService {
-
+    
     @Autowired
     private PortfolioRepository portfolioRepository;
     @Autowired
@@ -40,28 +43,28 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Autowired
     @Lazy
     private InterestService interestService;
-
+    
     @Override
     public PortfolioDto getById(Long id) {
         PortfolioDto dto = this.portfolioRepository.findById(id)
                 .map(entity -> this.portfolioMapper.toPortfolioDto(entity))
                 .orElseThrow();
-
+        
         dto.setEducations(this.educationService.getAllByPortfolioId(id));
         dto.setExperiences(this.experienceService.getAllByPortfolioId(id));
         dto.setSkills(this.skillService.getAllByPortfolioId(id));
         dto.setProjects(this.projectService.getAllByPortfolioId(id));
         dto.setInterests(this.interestService.getAllByPortfolioId(id));
-
+        
         return dto;
     }
-
+    
     @Override
     public Portfolio getPortfolioById(Long id) {
         return this.portfolioRepository.findById(id).orElseThrow();
-
+        
     }
-
+    
     @Override
     public void patch(Long id, PortfolioBasicDto dto) {
         this.portfolioRepository.findById(id)
@@ -76,7 +79,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                 })
                 .orElseThrow();
     }
-
+    
     @Override
     public void patchAboutMe(Long id, PortfolioAboutDto dto) {
         this.portfolioRepository.findById(id)
@@ -86,7 +89,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                 })
                 .orElseThrow();
     }
-
+    
     @Override
     public PortfolioAboutDto getAboutMe(Long id) {
         PortfolioAboutDto dto = this.portfolioRepository.findById(id)
@@ -94,7 +97,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                 .orElseThrow();
         return dto;
     }
-
+    
     @Override
     public PortfolioBasicDto getBasicInfo(Long id) {
         PortfolioBasicDto dto = this.portfolioRepository.findById(id)
@@ -102,5 +105,16 @@ public class PortfolioServiceImpl implements PortfolioService {
                 .orElseThrow();
         return dto;
     }
-
+    
+    @Override
+    public Portfolio save(User user) {
+        Portfolio portfolio = new Portfolio();
+        ContactInformation contactInformation = new ContactInformation();
+        CurrentCompany currentCompany = new CurrentCompany();
+        portfolio.setContactInformation(contactInformation);
+        portfolio.setCurrentCompany(currentCompany);
+        portfolio.setUser(user);
+        return this.portfolioRepository.save(portfolio);
+    }
+    
 }

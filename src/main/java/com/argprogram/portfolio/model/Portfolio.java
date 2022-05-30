@@ -1,9 +1,11 @@
 package com.argprogram.portfolio.model;
 
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,13 +59,17 @@ public class Portfolio {
     @Column(name = "about_me")
     private String aboutMe;
 
-    @OneToOne
-    @JoinColumn(name = "current_company_id")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "current_company_id", nullable = false)
     private CurrentCompany currentCompany;
 
-    @OneToOne
-    @JoinColumn(name = "contact_information_id")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "contact_information_id", nullable = false)
     private ContactInformation contactInformation;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate

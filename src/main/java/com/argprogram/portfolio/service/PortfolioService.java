@@ -4,6 +4,7 @@ import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
 import com.argprogram.portfolio.model.Portfolio;
+import com.argprogram.portfolio.model.User;
 
 public interface PortfolioService {
 
@@ -18,4 +19,6 @@ public interface PortfolioService {
     PortfolioAboutDto getAboutMe(Long id);
 
     PortfolioBasicDto getBasicInfo(Long id);
+    
+    Portfolio save (User user);
 }
