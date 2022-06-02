@@ -10,5 +10,5 @@ public interface UserMapper {
 
     User toUser(RegisterRequest dto);
 
-    AuthenticationResponse toAuthenticationResponse(User user, String jwt);
+    AuthenticationResponse toAuthenticationResponse(String jwt);
 }

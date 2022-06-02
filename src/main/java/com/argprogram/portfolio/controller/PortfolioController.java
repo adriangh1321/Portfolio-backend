@@ -1,6 +1,5 @@
 package com.argprogram.portfolio.controller;
 
-import com.argprogram.portfolio.dto.CurrentCompanyDto;
 import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
@@ -23,9 +22,14 @@ public class PortfolioController {
 
     private final PortfolioService portfolioService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PortfolioDto> getOneById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getById(id));
+//    @GetMapping("/{id}")
+//    public ResponseEntity<PortfolioDto> getOneById(@PathVariable Long id) {
+//        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getById(id));
+//    }
+    
+     @GetMapping("/me")
+    public ResponseEntity<PortfolioDto> getMePortfolio() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getMeByToken());
     }
 
     @PatchMapping("/{id}")

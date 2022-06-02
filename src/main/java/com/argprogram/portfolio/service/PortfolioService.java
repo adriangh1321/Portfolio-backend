@@ -19,6 +19,10 @@ public interface PortfolioService {
     PortfolioAboutDto getAboutMe(Long id);
 
     PortfolioBasicDto getBasicInfo(Long id);
+
+    Portfolio save(User user);
+
+    Portfolio getPortfolioByUserId(Long id);
     
-    Portfolio save (User user);
+    PortfolioDto getMeByToken();
 }

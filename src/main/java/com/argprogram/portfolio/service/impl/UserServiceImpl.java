@@ -35,9 +35,8 @@ public class UserServiceImpl implements UserService {
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         Role roleUser = this.roleService.getById(this.USER_ROLE_ID);
         newUser.setRole(roleUser);
-        Portfolio newPortfolio=this.portfolioService.save(newUser);
-        newUser=newPortfolio.getUser();       
+        Portfolio newPortfolio = this.portfolioService.save(newUser);
         String jwt = this.jwtUtils.generateToken(newUser);
-        return this.userMapper.toAuthenticationResponse(newUser, jwt);
+        return this.userMapper.toAuthenticationResponse(jwt);
     }
 }
