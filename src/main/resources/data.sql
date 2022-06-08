@@ -1,3 +1,27 @@
+-- It inserts the roles ADMIN and USER into roles table.
+INSERT INTO roles (id, created_at, description, name, updated_at)
+SELECT 1,
+       CURDATE(),
+       'This role has full control permission to manage the web application. It has full access to restricted services.',
+       'ROLE_ADMIN',
+       NULL WHERE NOT EXISTS (SELECT * FROM roles WHERE name='ROLE_ADMIN');
+
+INSERT INTO roles (id, created_at, description, name, updated_at)
+SELECT 2,
+       CURDATE(),
+       'This role has basic permissions only to use the allowed services. It does not have access to restricted services to manage the content of the web application.',
+       'ROLE_USER',
+       NULL WHERE NOT EXISTS (SELECT * FROM roles WHERE name='ROLE_USER');
+
+INSERT INTO users(id,created_at,email,is_active,updated_at,password,role_id)
+SELECT 1,
+       CURDATE(),
+       'adriangh1321@gmail.com',
+       TRUE,
+       NULL,
+       '$2a$10$DG0WbMHihHQilUssObgK6.b1iO8.RLGzqwYuSLUB31p/KvtEXmmke',
+       2 WHERE NOT EXISTS (SELECT * FROM users WHERE id=1);
+
 INSERT INTO contact_informations (id,created_at,deleted_at,email,is_active,linked_in,phone,remote_repository,updated_at)
 SELECT 1,
 	   CURDATE(),
@@ -21,7 +45,7 @@ SELECT 1,
        "ecogas.com.ar"
 	   WHERE NOT EXISTS (SELECT * FROM current_companies WHERE id=1);
 
-INSERT INTO portfolios (id, about_me,country,created_at,deleted_at,firstname,image,is_active,lastname,ocupation,state,updated_at,current_company_id,contact_information_id)
+INSERT INTO portfolios (id, about_me,country,created_at,deleted_at,firstname,image,is_active,lastname,ocupation,state,updated_at,current_company_id,contact_information_id,user_id)
 SELECT 1,
        "I am a java backend developer!",
        "Argentine",
@@ -34,6 +58,7 @@ SELECT 1,
        "Chemical Engineer",
        "Mendoza",
        NULL,
+       1,
        1,
        1
 	   WHERE NOT EXISTS (SELECT * FROM portfolios WHERE id=1);
