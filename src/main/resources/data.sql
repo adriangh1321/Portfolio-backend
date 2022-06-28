@@ -22,16 +22,19 @@ SELECT 1,
        '$2a$10$DG0WbMHihHQilUssObgK6.b1iO8.RLGzqwYuSLUB31p/KvtEXmmke',
        2 WHERE NOT EXISTS (SELECT * FROM users WHERE id=1);
 
-INSERT INTO contact_informations (id,created_at,deleted_at,email,is_active,linked_in,phone,remote_repository,updated_at)
+INSERT INTO contact_informations (id,created_at,deleted_at,email,is_active,linked_in,phone,remote_repository,updated_at,facebook,twitter,instagram)
 SELECT 1,
 	   CURDATE(),
        NULL,
        "adriangh1321@gmail.com",
        TRUE,
-       "linkedin.com/in/gustavohernandez-ing/",
+       "linkedin.com/in/gustavohernandez-ing",
        "(261)5749942",
        "github.com/adriangh1321",
-       NULL
+       NULL,
+       "facebook.com/adrian.0119",
+       "twitter.com/Gustavo89441547",
+       "instagram.com/adriangh1321"
        WHERE NOT EXISTS (SELECT * FROM contact_informations WHERE id=1);
 
 INSERT INTO current_companies (id,created_at,deleted_at,image,is_active,name,updated_at,url)

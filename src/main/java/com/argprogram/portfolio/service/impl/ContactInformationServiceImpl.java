@@ -30,6 +30,9 @@ public class ContactInformationServiceImpl implements ContactInformationService 
                     contactInformation.setEmail(dto.getEmail());
                     contactInformation.setLinkedIn(dto.getLinkedIn());
                     contactInformation.setRemoteRepository(dto.getRemoteRepository());
+                    contactInformation.setFacebook(dto.getFacebook());
+                    contactInformation.setTwitter(dto.getTwitter());
+                    contactInformation.setInstagram(dto.getInstagram());
                     return this.contactInformationRepository.save(contactInformation);
                 })
                 .orElseThrow();
