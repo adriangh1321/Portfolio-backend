@@ -45,6 +45,15 @@ public class ContactInformation {
     @Column(name="remote_repository")
     private String remoteRepository;
     
+    @Column(name="facebook")
+    private String facebook;
+    
+    @Column(name="twitter")
+    private String twitter;
+    
+    @Column(name="instagram")
+    private String instagram;
+    
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy/MM/dd")
