@@ -1,7 +1,7 @@
 package com.argprogram.portfolio.service.impl;
 
-import com.argprogram.portfolio.dto.CurrentCompanyDto;
 import com.argprogram.portfolio.dto.PortfolioAboutDto;
+import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
 import com.argprogram.portfolio.exception.NotFoundException;
@@ -65,7 +65,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Override
     public Portfolio getPortfolioById(Long id) {
-        return this.portfolioRepository.findById(id).orElseThrow();
+        return this.portfolioRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
 
     }
 
@@ -140,6 +140,27 @@ public class PortfolioServiceImpl implements PortfolioService {
         dto.setInterests(this.interestService.getAllByPortfolioId(dto.getId()));
 
         return dto;
+    }
+
+    @Override
+    public PortfolioBannerDto getBanner() {
+        Portfolio portfolio = this.getPortfolioByUserLogged();
+        return this.portfolioMapper.toPortfolioBannerDto(portfolio);
+    }
+
+    @Override
+    public void patchBanner( PortfolioBannerDto dto) {
+        Portfolio portfolio=this.getPortfolioByUserLogged();
+        portfolio.setBanner(dto.getBanner());
+        this.portfolioRepository.save(portfolio);
+
+    }
+
+
+    @Override
+    public Portfolio getPortfolioByUserLogged() {
+        User user = this.authService.getUserLogged();
+        return this.getPortfolioByUserId(user.getId());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.argprogram.portfolio.mapper;
 
 import com.argprogram.portfolio.dto.PortfolioAboutDto;
+import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
 import com.argprogram.portfolio.model.Portfolio;
@@ -16,4 +17,7 @@ public interface PortfolioMapper {
     PortfolioAboutDto toPortfolioAboutDto(Portfolio portfolio);
     
     PortfolioBasicDto toPortfolioBasicDto(Portfolio portfolio);
+    
+    PortfolioBannerDto toPortfolioBannerDto(Portfolio portfolio);
+    
 }

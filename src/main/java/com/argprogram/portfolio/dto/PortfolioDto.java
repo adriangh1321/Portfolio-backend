@@ -30,6 +30,8 @@ public class PortfolioDto {
     private String state;
 
     private String image;
+    
+    private String banner;
 
     @NotBlank
     private String aboutMe;

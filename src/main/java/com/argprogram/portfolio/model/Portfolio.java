@@ -55,6 +55,10 @@ public class Portfolio {
     @Column(name = "image")
     @Lob
     private String image;
+    
+    @Column(name = "banner")
+    @Lob
+    private String banner;
 
     @Column(name = "about_me")
     private String aboutMe;
