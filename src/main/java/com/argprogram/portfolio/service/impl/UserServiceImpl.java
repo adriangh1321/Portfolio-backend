@@ -2,6 +2,8 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.AuthenticationResponse;
 import com.argprogram.portfolio.dto.RegisterRequest;
+import com.argprogram.portfolio.exception.DuplicateValueException;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.UserMapper;
 import com.argprogram.portfolio.model.ContactInformation;
 import com.argprogram.portfolio.model.CurrentCompany;
@@ -31,6 +33,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthenticationResponse save(RegisterRequest registerRequest) {
+        this.userRepository.findByEmail(registerRequest.getEmail())
+                .ifPresent((user) -> {
+                    throw new DuplicateValueException("This email already exists");
+                });
         User newUser = userMapper.toUser(registerRequest);
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         Role roleUser = this.roleService.getById(this.USER_ROLE_ID);

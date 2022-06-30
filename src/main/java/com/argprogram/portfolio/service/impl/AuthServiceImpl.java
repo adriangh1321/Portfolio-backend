@@ -2,7 +2,7 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.AuthenticationRequest;
 import com.argprogram.portfolio.dto.AuthenticationResponse;
-import com.argprogram.portfolio.exception.BadUserLoginException;
+import com.argprogram.portfolio.exception.BadLoginException;
 import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.UserMapper;
 import com.argprogram.portfolio.model.User;
@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
                     new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
             userDetails = (UserDetails) auth.getPrincipal();            
         } catch (Exception e) {
-            throw new BadUserLoginException("There is a problem at login");
+            throw new BadLoginException("Incorrect user/password");
         }
         final String jwt = jwtTokenUtil.generateToken(userDetails);
         return this.userMapper.toAuthenticationResponse(jwt);
