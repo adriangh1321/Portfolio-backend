@@ -20,4 +20,17 @@ public class GlobalControllerExceptionHandler extends AbstractExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
+    
+    
+    @ExceptionHandler(value = {DuplicateValueException.class})
+    protected ResponseEntity<ErrorDetails> handleDuplicateValueException(RuntimeException exc) {
+        ErrorDetails error = ErrorDetails.builder()
+                .code(ApplicationErrorCode.INVALID_FIELD_VALUE)
+                .description(exc.getMessage())
+                .field("email")
+                .location(Location.BODY)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
 }
