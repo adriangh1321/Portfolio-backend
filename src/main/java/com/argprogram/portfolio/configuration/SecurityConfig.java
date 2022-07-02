@@ -1,5 +1,7 @@
 package com.argprogram.portfolio.configuration;
 
+import com.argprogram.portfolio.security.CustomAccessDeniedHandler;
+import com.argprogram.portfolio.security.CustomAuthenticationEntryPoint;
 import com.argprogram.portfolio.security.JwtRequestFilter;
 import com.argprogram.portfolio.security.impl.UserSecurityService;
 import java.util.Arrays;
@@ -14,6 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -63,12 +67,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/v1/auth/register","/v1/auth/login").permitAll()
+                .authorizeRequests().antMatchers("/v1/auth/register","/v1/auth/login","/v1/portfolios").permitAll()
                 .anyRequest().authenticated()
-                .and().exceptionHandling()
+                .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
+                .accessDeniedHandler(accessDeniedHandler())
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
          httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+    
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint(){    
+        return new CustomAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler(){
+        return new CustomAccessDeniedHandler();
     }
 }

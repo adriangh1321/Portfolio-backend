@@ -4,6 +4,7 @@ import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
+import com.argprogram.portfolio.dto.PortfolioProfileDto;
 import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.PortfolioMapper;
 import com.argprogram.portfolio.model.ContactInformation;
@@ -18,6 +19,9 @@ import com.argprogram.portfolio.service.InterestService;
 import com.argprogram.portfolio.service.PortfolioService;
 import com.argprogram.portfolio.service.ProjectService;
 import com.argprogram.portfolio.service.SkillService;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -149,18 +153,31 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public void patchBanner( PortfolioBannerDto dto) {
-        Portfolio portfolio=this.getPortfolioByUserLogged();
+    public void patchBanner(PortfolioBannerDto dto) {
+        Portfolio portfolio = this.getPortfolioByUserLogged();
         portfolio.setBanner(dto.getBanner());
         this.portfolioRepository.save(portfolio);
 
     }
 
-
     @Override
     public Portfolio getPortfolioByUserLogged() {
         User user = this.authService.getUserLogged();
         return this.getPortfolioByUserId(user.getId());
+    }
+
+    @Override
+    public List<PortfolioProfileDto> getPortfolioProfiles() {
+        return this.portfolioRepository.findAll().stream()
+                .map(portfolio -> {
+                    PortfolioProfileDto dto = new PortfolioProfileDto();
+                    dto.setFirstname(portfolio.getFirstname());
+                    dto.setLastname(portfolio.getLastname());
+                    dto.setImage(portfolio.getImage());
+//            dto.setAlias(portfolio.getUser().getAlias());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
 }
