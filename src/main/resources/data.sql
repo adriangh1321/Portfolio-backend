@@ -13,14 +13,15 @@ SELECT 2,
        'ROLE_USER',
        NULL WHERE NOT EXISTS (SELECT * FROM roles WHERE name='ROLE_USER');
 
-INSERT INTO users(id,created_at,email,is_active,updated_at,password,role_id)
+INSERT INTO users(id,created_at,email,is_active,updated_at,password,role_id,nickname)
 SELECT 1,
        CURDATE(),
        'adriangh1321@gmail.com',
        TRUE,
        NULL,
        '$2a$10$DG0WbMHihHQilUssObgK6.b1iO8.RLGzqwYuSLUB31p/KvtEXmmke',
-       2 WHERE NOT EXISTS (SELECT * FROM users WHERE id=1);
+       2,
+       'gustavo92' WHERE NOT EXISTS (SELECT * FROM users WHERE id=1);
 
 INSERT INTO contact_informations (id,created_at,deleted_at,email,is_active,linked_in,phone,remote_repository,updated_at,facebook,twitter,instagram)
 SELECT 1,

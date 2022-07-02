@@ -174,7 +174,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                     dto.setFirstname(portfolio.getFirstname());
                     dto.setLastname(portfolio.getLastname());
                     dto.setImage(portfolio.getImage());
-//            dto.setAlias(portfolio.getUser().getAlias());
+                    dto.setNickname(portfolio.getUser().getNickname());
                     return dto;
                 })
                 .collect(Collectors.toList());

@@ -18,5 +18,5 @@ public class PortfolioProfileDto {
     private String image;
     
     @NotNull
-    private String alias;
+    private String nickname;
 }
