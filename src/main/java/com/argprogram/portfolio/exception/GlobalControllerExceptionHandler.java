@@ -24,11 +24,11 @@ public class GlobalControllerExceptionHandler extends AbstractExceptionHandler {
     }
 
     @ExceptionHandler(value = {DuplicateValueException.class})
-    protected ResponseEntity<ErrorDetails> handleDuplicateValueException(RuntimeException exc) {
+    protected ResponseEntity<ErrorDetails> handleDuplicateValueException(DuplicateValueException exc) {
         ErrorDetails error = ErrorDetails.builder()
                 .code(ApplicationErrorCode.INVALID_FIELD_VALUE)
                 .description(exc.getMessage())
-                .field("email")
+                .field(exc.getField())
                 .location(Location.BODY)
                 .build();
 

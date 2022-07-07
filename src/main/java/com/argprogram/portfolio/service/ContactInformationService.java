@@ -9,4 +9,6 @@ public interface ContactInformationService {
     ContactInformationDto getById(Long id);
     
     void update(Long id, ContactInformationDto dto);
+    
+    ContactInformationDto getMeByToken();
 }

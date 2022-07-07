@@ -15,7 +15,7 @@ public interface PortfolioService {
 
     Portfolio getPortfolioById(Long id);
 
-    void patch(Long id, PortfolioBasicDto dto);
+    void patchBasicInfo(Long id, PortfolioBasicDto dto);
 
     void patchAboutMe(Long id, PortfolioAboutDto dto);
     
@@ -36,4 +36,6 @@ public interface PortfolioService {
     Portfolio getPortfolioByUserLogged();
     
     List<PortfolioProfileDto> getPortfolioProfiles();
+    
+    PortfolioDto getByUserNickname(String nickname);
 }

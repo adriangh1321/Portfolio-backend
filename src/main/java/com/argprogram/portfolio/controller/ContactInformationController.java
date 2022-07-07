@@ -21,15 +21,20 @@ public class ContactInformationController {
     
     private final ContactInformationService contactInformationService;
     
-    @GetMapping("{id}")
-    public ResponseEntity<ContactInformationDto> getById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.contactInformationService.getById(id));
-    }
+//    @GetMapping("{id}")
+//    public ResponseEntity<ContactInformationDto> getById(@PathVariable Long id) {
+//        return ResponseEntity.status(HttpStatus.OK).body(this.contactInformationService.getById(id));
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid ContactInformationDto dto) {
         this.contactInformationService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+    
+     @GetMapping("/me")
+    public ResponseEntity<ContactInformationDto> getMeByToken() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.contactInformationService.getMeByToken());
     }
     
 }

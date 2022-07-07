@@ -3,12 +3,14 @@ package com.argprogram.portfolio.controller;
 import com.argprogram.portfolio.dto.AuthenticationRequest;
 import com.argprogram.portfolio.dto.AuthenticationResponse;
 import com.argprogram.portfolio.dto.RegisterRequest;
+import com.argprogram.portfolio.dto.UserDto;
 import com.argprogram.portfolio.service.AuthService;
 import com.argprogram.portfolio.service.impl.UserServiceImpl;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +32,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody AuthenticationRequest authRequest) {
         return ResponseEntity.ok(this.authService.login(authRequest));
+    }
+    
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> getMe(){
+        return ResponseEntity.ok(this.authService.getMeUser());
     }
 }

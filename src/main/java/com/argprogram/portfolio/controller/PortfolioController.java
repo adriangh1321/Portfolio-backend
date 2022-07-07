@@ -36,8 +36,8 @@ public class PortfolioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> patch(@PathVariable Long id, @RequestBody @Valid PortfolioBasicDto dto) {
-        this.portfolioService.patch(id, dto);
+    public ResponseEntity<Void> patchBasicInfo(@PathVariable Long id, @RequestBody @Valid PortfolioBasicDto dto) {
+        this.portfolioService.patchBasicInfo(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -71,6 +71,11 @@ public class PortfolioController {
     @GetMapping()
     public ResponseEntity<List<PortfolioProfileDto>> getProfiles(){
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getPortfolioProfiles());
+    }
+    
+    @GetMapping("/user/{nickname}")
+    public ResponseEntity<PortfolioDto> getByUserNickname(@PathVariable String nickname) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getByUserNickname(nickname));
     }
     
   }

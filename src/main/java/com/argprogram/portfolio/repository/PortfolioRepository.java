@@ -11,4 +11,7 @@ public interface PortfolioRepository extends JpaRepository<Portfolio, Long> {
 
     @Query(value = "SELECT p FROM Portfolio p WHERE p.user.id = ?1")
     Optional<Portfolio> findByUserId(Long idUser);
+    
+    @Query(value= "SELECT p FROM Portfolio p WHERE p.user.nickname= ?1")
+    Optional<Portfolio> findByUserNickname(String nickname);
 }
