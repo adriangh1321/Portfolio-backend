@@ -4,8 +4,10 @@ import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
+import com.argprogram.portfolio.dto.PortfolioProfileDto;
 import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.model.User;
+import java.util.List;
 
 public interface PortfolioService {
 
@@ -13,7 +15,7 @@ public interface PortfolioService {
 
     Portfolio getPortfolioById(Long id);
 
-    void patch(Long id, PortfolioBasicDto dto);
+    void patchBasicInfo(Long id, PortfolioBasicDto dto);
 
     void patchAboutMe(Long id, PortfolioAboutDto dto);
     
@@ -32,4 +34,8 @@ public interface PortfolioService {
     PortfolioDto getMeByToken();
     
     Portfolio getPortfolioByUserLogged();
+    
+    List<PortfolioProfileDto> getPortfolioProfiles();
+    
+    PortfolioDto getByUserNickname(String nickname);
 }

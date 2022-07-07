@@ -2,6 +2,7 @@ package com.argprogram.portfolio.mapper;
 
 import com.argprogram.portfolio.dto.AuthenticationResponse;
 import com.argprogram.portfolio.dto.RegisterRequest;
+import com.argprogram.portfolio.dto.UserDto;
 import com.argprogram.portfolio.model.User;
 import org.mapstruct.Mapper;
 
@@ -9,6 +10,8 @@ import org.mapstruct.Mapper;
 public interface UserMapper {
 
     User toUser(RegisterRequest dto);
-
-    AuthenticationResponse toAuthenticationResponse(String jwt);
+    
+    UserDto toUseDto(User user);
+    
+    AuthenticationResponse toAuthenticationResponse(String jwt, UserDto user);
 }

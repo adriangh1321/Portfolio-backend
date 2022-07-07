@@ -4,7 +4,9 @@ import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
+import com.argprogram.portfolio.dto.PortfolioProfileDto;
 import com.argprogram.portfolio.service.PortfolioService;
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,8 +36,8 @@ public class PortfolioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> patch(@PathVariable Long id, @RequestBody @Valid PortfolioBasicDto dto) {
-        this.portfolioService.patch(id, dto);
+    public ResponseEntity<Void> patchBasicInfo(@PathVariable Long id, @RequestBody @Valid PortfolioBasicDto dto) {
+        this.portfolioService.patchBasicInfo(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -64,6 +66,16 @@ public class PortfolioController {
     @GetMapping("/me/banner")
     public ResponseEntity<PortfolioBannerDto> getBanner() {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getBanner());
+    }
+    
+    @GetMapping()
+    public ResponseEntity<List<PortfolioProfileDto>> getProfiles(){
+        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getPortfolioProfiles());
+    }
+    
+    @GetMapping("/user/{nickname}")
+    public ResponseEntity<PortfolioDto> getByUserNickname(@PathVariable String nickname) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getByUserNickname(nickname));
     }
     
   }

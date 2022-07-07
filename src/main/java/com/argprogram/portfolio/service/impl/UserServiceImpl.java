@@ -35,14 +35,20 @@ public class UserServiceImpl implements UserService {
     public AuthenticationResponse save(RegisterRequest registerRequest) {
         this.userRepository.findByEmail(registerRequest.getEmail())
                 .ifPresent((user) -> {
-                    throw new DuplicateValueException("This email already exists");
+                    throw new DuplicateValueException("This email already exists","email");
                 });
+        this.userRepository.findByNickname(registerRequest.getNickname())
+                .ifPresent((user) -> {
+                    throw new DuplicateValueException("This nickname already exists","nickname");
+                });
+        
         User newUser = userMapper.toUser(registerRequest);
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         Role roleUser = this.roleService.getById(this.USER_ROLE_ID);
         newUser.setRole(roleUser);
         Portfolio newPortfolio = this.portfolioService.save(newUser);
         String jwt = this.jwtUtils.generateToken(newUser);
-        return this.userMapper.toAuthenticationResponse(jwt);
+        
+        return this.userMapper.toAuthenticationResponse(jwt,this.userMapper.toUseDto(newUser));
     }
 }
