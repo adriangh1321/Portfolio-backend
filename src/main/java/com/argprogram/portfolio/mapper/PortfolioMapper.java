@@ -4,6 +4,7 @@ import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
+import com.argprogram.portfolio.dto.PortfolioImageDto;
 import com.argprogram.portfolio.model.Portfolio;
 import org.mapstruct.Mapper;
 
@@ -19,5 +20,7 @@ public interface PortfolioMapper {
     PortfolioBasicDto toPortfolioBasicDto(Portfolio portfolio);
     
     PortfolioBannerDto toPortfolioBannerDto(Portfolio portfolio);
+    
+    PortfolioImageDto toPortfolioImageDto(Portfolio portfolio);
     
 }
