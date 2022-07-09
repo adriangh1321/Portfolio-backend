@@ -4,6 +4,7 @@ import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
+import com.argprogram.portfolio.dto.PortfolioImageDto;
 import com.argprogram.portfolio.dto.PortfolioProfileDto;
 import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.PortfolioMapper;
@@ -180,6 +181,11 @@ public class PortfolioServiceImpl implements PortfolioService {
 
         return dto;
 
+    }
+
+    @Override
+    public PortfolioImageDto getImage() {
+        return this.portfolioMapper.toPortfolioImageDto(this.getPortfolioByUserLogged());
     }
 
 }
