@@ -8,6 +8,9 @@ import com.argprogram.portfolio.model.Project;
 import com.argprogram.portfolio.repository.ProjectRepository;
 import com.argprogram.portfolio.service.PortfolioService;
 import com.argprogram.portfolio.service.ProjectService;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -63,6 +66,15 @@ public class ProjectServiceImpl implements ProjectService {
                 .map(project -> {
                     project.setName(dto.getName());
                     project.setDescription(dto.getDescription());
+                    project.setImage(dto.getImage());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+                    project.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
+                    if (dto.getEndDate() == null) {
+                        project.setEndDate(null);
+                    }else{
+                        project.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
+                    }
+                    project.setUrl(dto.getUrl());
 
                     return this.projectRepository.save(project);
                 })

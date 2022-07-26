@@ -214,28 +214,81 @@ SELECT 6,
        NULL,
        1
        WHERE NOT EXISTS (SELECT * FROM skills WHERE id=6);
-       
-INSERT INTO projects (id,created_at,deleted_at,description,is_active,name,updated_at,portfolio_id)
+
+INSERT INTO projects (id,created_at,deleted_at,description,is_active,name,updated_at,portfolio_id,image,start_date,end_date,url)
 SELECT 1,
 	   CURDATE(),
        NULL,
-       "This API was developed with Java Spring for SOMOS MAS organization in Alkemy Aceleration",
+       "This application allows you to publish your personal portfolio and manage your information, such as your studies, experiences, developed projects, contact details, among others, in order to find a job. The application is developed with Angular (Typescript) + Spring (Java) as the final project of the course Argentina Programa.",
        TRUE,
-       "API for Somos Mas NGO",
+       "Portfolio App",
        NULL,
-       1
+       1,
+       "./assets/img/portfolio-project.JPG",
+       '2022-03-01',
+       '2022-07-26',
+       "github.com/adriangh1321/Portfolio-frontend"
        WHERE NOT EXISTS (SELECT * FROM projects WHERE id=1);
        
-INSERT INTO projects (id,created_at,deleted_at,description,is_active,name,updated_at,portfolio_id)
+INSERT INTO projects (id,created_at,deleted_at,description,is_active,name,updated_at,portfolio_id,image,start_date,end_date,url)
 SELECT 2,
 	   CURDATE(),
        NULL,
-       "This web application was developed with Java Spring that allows renting accommodation",
+       "This API was developed with Java Spring for SOMOS MAS organization in Alkemy Aceleration.",
+       TRUE,
+       "API for Somos Mas NGO",
+       NULL,
+       1,
+       "./assets/img/alkemy-project.JPG",
+       '2022-02-01',
+       '2022-03-20',
+       "github.com/adriangh1321/AlkemyAceleracion-JAVA"
+       WHERE NOT EXISTS (SELECT * FROM projects WHERE id=2);
+
+INSERT INTO projects (id,created_at,deleted_at,description,is_active,name,updated_at,portfolio_id,image,start_date,end_date,url)
+SELECT 3,
+	   CURDATE(),
+       NULL,
+       "The application has services to manage the characters, movies and genres of the Disney world. To access them, the user is previously required to register in the application and authenticate. For this you will be given a JWT token valid for 10 hours. It's developed with Java Spring and MySql as the challenge of the pre-Aceleration Alkemy.",
+       TRUE,
+       "Disney Api",
+       NULL,
+       1,
+       "./assets/img/disney-project.JPG",
+       '2021-12-20',
+       '2022-01-20',
+       "github.com/adriangh1321/disney-api"
+       WHERE NOT EXISTS (SELECT * FROM projects WHERE id=3);
+       
+INSERT INTO projects (id,created_at,deleted_at,description,is_active,name,updated_at,portfolio_id,image,start_date,end_date,url)
+SELECT 4,
+	   CURDATE(),
+       NULL,
+       "This web application allows you to register a user to rent an accommodation or offer it. It's developed with Java Spring, MySql, CSS, Thymeleaf and Bootstrap.",
        TRUE,
        "Accommodation Application",
        NULL,
-       1
-       WHERE NOT EXISTS (SELECT * FROM projects WHERE id=2);
+       1,
+       "./assets/img/estancias-project.JPG",
+       '2021-12-01',
+       '2022-02-01',
+       "github.com/adriangh1321/estancias"
+       WHERE NOT EXISTS (SELECT * FROM projects WHERE id=4);
+
+INSERT INTO projects (id,created_at,deleted_at,description,is_active,name,updated_at,portfolio_id,image,start_date,end_date,url)
+SELECT 5,
+	   CURDATE(),
+       NULL,
+       "Library App allows user to find a book and rent it. The application is developed with Spring Java, MySql, CSS and Thymeleaf as the final project of the course Fullstack Egg.",
+       TRUE,
+       "Library App",
+       NULL,
+       1,
+       "./assets/img/library-project.JPG",
+       '2021-11-01',
+       '2021-12-01',
+       "github.com/adriangh1321/library"
+       WHERE NOT EXISTS (SELECT * FROM projects WHERE id=5);
        
 INSERT INTO interests (id,created_at,deleted_at,image,is_active,name,updated_at,portfolio_id)
 SELECT 1,
