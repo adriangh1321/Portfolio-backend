@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -39,8 +40,21 @@ public class Project {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description",length = 1000)
     private String description;
+    
+    @Column(name="image")
+    @Lob
+    private String image;
+    
+    @Column(name="url")
+    private String url;
+    
+    @Column(name="start_date")
+    private LocalDate startDate;
+    
+    @Column(name="end_date")
+    private LocalDate endDate;
 
     @ManyToOne
     @JoinColumn(name = "portfolio_id")
