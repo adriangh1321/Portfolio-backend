@@ -19,4 +19,10 @@ public class PortfolioProfileDto {
     
     @NotNull
     private String nickname;
+    
+    private String country;
+    
+    private String state;
+    
+    private String ocupation;
 }
