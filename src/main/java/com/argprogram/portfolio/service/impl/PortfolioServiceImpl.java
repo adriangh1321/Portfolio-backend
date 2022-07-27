@@ -162,6 +162,9 @@ public class PortfolioServiceImpl implements PortfolioService {
                     dto.setLastname(portfolio.getLastname());
                     dto.setImage(portfolio.getImage());
                     dto.setNickname(portfolio.getUser().getNickname());
+                    dto.setCountry(portfolio.getCountry());
+                    dto.setState(portfolio.getState());
+                    dto.setOcupation(portfolio.getOcupation());
                     return dto;
                 })
                 .collect(Collectors.toList());
