@@ -41,4 +41,6 @@ public interface PortfolioService {
     PortfolioDto getByUserNickname(String nickname);
     
     PortfolioImageDto getImage();
+    
+    List<PortfolioProfileDto> getPortfoliosByFilters(String name, String ocupation,String country,String state, String order);
 }

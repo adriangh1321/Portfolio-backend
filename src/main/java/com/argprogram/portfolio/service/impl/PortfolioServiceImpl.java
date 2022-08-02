@@ -4,6 +4,7 @@ import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
+import com.argprogram.portfolio.dto.PortfolioFiltersDto;
 import com.argprogram.portfolio.dto.PortfolioImageDto;
 import com.argprogram.portfolio.dto.PortfolioProfileDto;
 import com.argprogram.portfolio.exception.NotFoundException;
@@ -13,6 +14,7 @@ import com.argprogram.portfolio.model.CurrentCompany;
 import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.model.User;
 import com.argprogram.portfolio.repository.PortfolioRepository;
+import com.argprogram.portfolio.repository.specifications.PortfolioSpecification;
 import com.argprogram.portfolio.service.AuthService;
 import com.argprogram.portfolio.service.EducationService;
 import com.argprogram.portfolio.service.ExperienceService;
@@ -51,6 +53,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     private InterestService interestService;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private PortfolioSpecification portfolioSpecification;
 
     @Override
     public PortfolioDto getById(Long id) {
@@ -94,13 +98,13 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Override
     public PortfolioAboutDto getAboutMe(Long id) {
-        PortfolioAboutDto dto = this.portfolioMapper.toPortfolioAboutDto(this.getPortfolioById(id));  
+        PortfolioAboutDto dto = this.portfolioMapper.toPortfolioAboutDto(this.getPortfolioById(id));
         return dto;
     }
 
     @Override
     public PortfolioBasicDto getBasicInfo(Long id) {
-        PortfolioBasicDto dto = this.portfolioMapper.toPortfolioBasicDto(this.getPortfolioById(id));    
+        PortfolioBasicDto dto = this.portfolioMapper.toPortfolioBasicDto(this.getPortfolioById(id));
         return dto;
     }
 
@@ -189,6 +193,25 @@ public class PortfolioServiceImpl implements PortfolioService {
     @Override
     public PortfolioImageDto getImage() {
         return this.portfolioMapper.toPortfolioImageDto(this.getPortfolioByUserLogged());
+    }
+
+    @Override
+    public List<PortfolioProfileDto> getPortfoliosByFilters(String name, String ocupation, String country, String state, String order) {
+        PortfolioFiltersDto filtersDto = new PortfolioFiltersDto(name, ocupation, country, state, order);
+        return this.portfolioRepository.findAll(this.portfolioSpecification.getByFilters(filtersDto)).stream()
+                .map(portfolio -> {
+                    PortfolioProfileDto dto = new PortfolioProfileDto();
+                    dto.setFirstname(portfolio.getFirstname());
+                    dto.setLastname(portfolio.getLastname());
+                    dto.setImage(portfolio.getImage());
+                    dto.setNickname(portfolio.getUser().getNickname());
+                    dto.setCountry(portfolio.getCountry());
+                    dto.setState(portfolio.getState());
+                    dto.setOcupation(portfolio.getOcupation());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
     }
 
 }

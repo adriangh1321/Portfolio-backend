@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -68,10 +69,10 @@ public class PortfolioController {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getBanner());
     }
 
-    @GetMapping()
-    public ResponseEntity<List<PortfolioProfileDto>> getProfiles() {
-        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getPortfolioProfiles());
-    }
+//    @GetMapping()
+//    public ResponseEntity<List<PortfolioProfileDto>> getProfiles() {
+//        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getPortfolioProfiles());
+//    }
 
     @GetMapping("/user/{nickname}")
     public ResponseEntity<PortfolioDto> getByUserNickname(@PathVariable String nickname) {
@@ -82,5 +83,16 @@ public class PortfolioController {
     public ResponseEntity<PortfolioImageDto> getImage() {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getImage());
 
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<PortfolioProfileDto>> getPortfoliosByFilters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String ocupation,
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String state,
+            @RequestParam(required = false, defaultValue = "ASC") String order) {
+        List<PortfolioProfileDto> result = this.portfolioService.getPortfoliosByFilters(name, ocupation, country, state, order);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
