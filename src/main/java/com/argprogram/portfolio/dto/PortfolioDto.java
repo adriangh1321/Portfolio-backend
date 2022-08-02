@@ -21,7 +21,7 @@ public class PortfolioDto {
     private String lastname;
     
     @NotBlank
-    private String ocupation;
+    private String occupation;
 
     @NotBlank
     private String country;

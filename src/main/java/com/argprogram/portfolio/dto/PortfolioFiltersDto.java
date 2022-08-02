@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PortfolioFiltersDto {
     private String name;
-    private String ocupation;
+    private String occupation;
     private String country;
     private String state;
     private String order;

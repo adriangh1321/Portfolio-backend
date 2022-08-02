@@ -80,7 +80,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         Portfolio entity = this.getPortfolioById(id);
         entity.setFirstname(dto.getFirstname());
         entity.setLastname(dto.getLastname());
-        entity.setOcupation(dto.getOcupation());
+        entity.setOccupation(dto.getOccupation());
         entity.setCountry(dto.getCountry());
         entity.setState(dto.getState());
         entity.setImage(dto.getImage());
@@ -168,7 +168,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                     dto.setNickname(portfolio.getUser().getNickname());
                     dto.setCountry(portfolio.getCountry());
                     dto.setState(portfolio.getState());
-                    dto.setOcupation(portfolio.getOcupation());
+                    dto.setOccupation(portfolio.getOccupation());
                     return dto;
                 })
                 .collect(Collectors.toList());
@@ -196,8 +196,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public List<PortfolioProfileDto> getPortfoliosByFilters(String name, String ocupation, String country, String state, String order) {
-        PortfolioFiltersDto filtersDto = new PortfolioFiltersDto(name, ocupation, country, state, order);
+    public List<PortfolioProfileDto> getPortfoliosByFilters(String name, String occupation, String country, String state, String order) {
+        PortfolioFiltersDto filtersDto = new PortfolioFiltersDto(name, occupation, country, state, order);
         return this.portfolioRepository.findAll(this.portfolioSpecification.getByFilters(filtersDto)).stream()
                 .map(portfolio -> {
                     PortfolioProfileDto dto = new PortfolioProfileDto();
@@ -207,7 +207,7 @@ public class PortfolioServiceImpl implements PortfolioService {
                     dto.setNickname(portfolio.getUser().getNickname());
                     dto.setCountry(portfolio.getCountry());
                     dto.setState(portfolio.getState());
-                    dto.setOcupation(portfolio.getOcupation());
+                    dto.setOccupation(portfolio.getOccupation());
                     return dto;
                 })
                 .collect(Collectors.toList());

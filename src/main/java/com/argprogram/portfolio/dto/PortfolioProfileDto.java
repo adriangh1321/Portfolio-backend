@@ -24,5 +24,5 @@ public class PortfolioProfileDto {
     
     private String state;
     
-    private String ocupation;
+    private String occupation;
 }

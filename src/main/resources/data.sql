@@ -49,7 +49,7 @@ SELECT 1,
        "ecogas.com.ar"
 	   WHERE NOT EXISTS (SELECT * FROM current_companies WHERE id=1);
 
-INSERT INTO portfolios (id, about_me,country,created_at,deleted_at,firstname,image,is_active,lastname,ocupation,state,updated_at,current_company_id,contact_information_id,user_id)
+INSERT INTO portfolios (id, about_me,country,created_at,deleted_at,firstname,image,is_active,lastname,occupation,state,updated_at,current_company_id,contact_information_id,user_id)
 SELECT 1,
        "I am a java backend developer!",
        "Argentine",

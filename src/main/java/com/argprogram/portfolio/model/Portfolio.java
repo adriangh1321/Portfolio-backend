@@ -43,8 +43,8 @@ public class Portfolio {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "ocupation")
-    private String ocupation;
+    @Column(name = "occupation")
+    private String occupation;
 
     @Column(name = "country")
     private String country;

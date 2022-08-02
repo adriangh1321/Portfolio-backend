@@ -88,11 +88,11 @@ public class PortfolioController {
     @GetMapping()
     public ResponseEntity<List<PortfolioProfileDto>> getPortfoliosByFilters(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String ocupation,
+            @RequestParam(required = false) String occupation,
             @RequestParam(required = false) String country,
             @RequestParam(required = false) String state,
             @RequestParam(required = false, defaultValue = "ASC") String order) {
-        List<PortfolioProfileDto> result = this.portfolioService.getPortfoliosByFilters(name, ocupation, country, state, order);
+        List<PortfolioProfileDto> result = this.portfolioService.getPortfoliosByFilters(name, occupation, country, state, order);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
