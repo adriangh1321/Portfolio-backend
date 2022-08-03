@@ -2,8 +2,11 @@ package com.argprogram.portfolio.repository.specifications;
 
 import com.argprogram.portfolio.dto.PortfolioFiltersDto;
 import com.argprogram.portfolio.model.Portfolio;
+import com.argprogram.portfolio.model.User;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -18,7 +21,12 @@ public class PortfolioSpecification {
             List<Predicate> predicates = new ArrayList();
             Predicate predicateForFirstname;
             Predicate predicateForLastname;
-            Predicate predicateForFirtnameOrLastname;
+            Predicate predicateForNickname;
+            Predicate predicateForFirtnameOrLastnameOrNickname;
+            Predicate predicateForOccupation;
+            Predicate predicateForCountry;
+            Predicate predicateForState;
+            
             
             if (StringUtils.hasLength(filterDto.getName())) {
 
@@ -30,10 +38,38 @@ public class PortfolioSpecification {
                         "%" + filterDto.getName().toLowerCase() + "%"
                 );
                 
+                Join<User,Portfolio> join= root.join("user",JoinType.INNER);
+                
+                predicateForNickname= criteriaBuilder.like(criteriaBuilder.lower(join.get("nickname")),
+                        "%" + filterDto.getName().toLowerCase() + "%"
+                );
 
-               predicateForFirtnameOrLastname= criteriaBuilder.or(predicateForFirstname,predicateForLastname);
-               predicates.add(predicateForFirtnameOrLastname);
+               predicateForFirtnameOrLastnameOrNickname= criteriaBuilder.or(predicateForFirstname,predicateForLastname,predicateForNickname);
+               predicates.add(predicateForFirtnameOrLastnameOrNickname);
             }
+            
+            if(StringUtils.hasLength(filterDto.getOccupation())){
+                predicateForOccupation=criteriaBuilder.like(criteriaBuilder.lower(root.get("occupation")),
+                        "%" + filterDto.getOccupation().toLowerCase() + "%"
+                );
+                predicates.add(predicateForOccupation);
+            }
+            
+            if(StringUtils.hasLength(filterDto.getCountry())){
+                predicateForCountry=criteriaBuilder.like(criteriaBuilder.lower(root.get("country")),
+                        "%" + filterDto.getCountry().toLowerCase() + "%"
+                );
+                predicates.add(predicateForCountry);
+            }
+            
+            if(StringUtils.hasLength(filterDto.getState())){
+                predicateForState=criteriaBuilder.like(criteriaBuilder.lower(root.get("state")),
+                        "%" + filterDto.getState().toLowerCase() + "%"
+                );
+                predicates.add(predicateForState);
+            }
+            
+            
             
             
 
