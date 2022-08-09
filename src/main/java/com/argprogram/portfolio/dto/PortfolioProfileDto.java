@@ -22,7 +22,7 @@ public class PortfolioProfileDto {
     
     private String country;
     
-    private String state;
+    private String region;
     
     private String occupation;
 }

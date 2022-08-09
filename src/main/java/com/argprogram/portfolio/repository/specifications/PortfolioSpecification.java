@@ -1,7 +1,10 @@
 package com.argprogram.portfolio.repository.specifications;
 
 import com.argprogram.portfolio.dto.PortfolioFiltersDto;
+import com.argprogram.portfolio.model.Country;
+import com.argprogram.portfolio.model.Location;
 import com.argprogram.portfolio.model.Portfolio;
+import com.argprogram.portfolio.model.Region;
 import com.argprogram.portfolio.model.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +28,8 @@ public class PortfolioSpecification {
             Predicate predicateForFirtnameOrLastnameOrNickname;
             Predicate predicateForOccupation;
             Predicate predicateForCountry;
-            Predicate predicateForState;
-            
-            
+            Predicate predicateForRegion;
+
             if (StringUtils.hasLength(filterDto.getName())) {
 
                 predicateForFirstname = criteriaBuilder.like(criteriaBuilder.lower(root.get("firstname")),
@@ -37,41 +39,50 @@ public class PortfolioSpecification {
                 predicateForLastname = criteriaBuilder.like(criteriaBuilder.lower(root.get("lastname")),
                         "%" + filterDto.getName().toLowerCase() + "%"
                 );
-                
-                Join<User,Portfolio> join= root.join("user",JoinType.INNER);
-                
-                predicateForNickname= criteriaBuilder.like(criteriaBuilder.lower(join.get("nickname")),
+
+                Join<User, Portfolio> join = root.join("user", JoinType.INNER);
+
+                predicateForNickname = criteriaBuilder.like(criteriaBuilder.lower(join.get("nickname")),
                         "%" + filterDto.getName().toLowerCase() + "%"
                 );
 
-               predicateForFirtnameOrLastnameOrNickname= criteriaBuilder.or(predicateForFirstname,predicateForLastname,predicateForNickname);
-               predicates.add(predicateForFirtnameOrLastnameOrNickname);
+                predicateForFirtnameOrLastnameOrNickname = criteriaBuilder.or(predicateForFirstname, predicateForLastname, predicateForNickname);
+                predicates.add(predicateForFirtnameOrLastnameOrNickname);
             }
-            
-            if(StringUtils.hasLength(filterDto.getOccupation())){
-                predicateForOccupation=criteriaBuilder.like(criteriaBuilder.lower(root.get("occupation")),
+
+            if (StringUtils.hasLength(filterDto.getOccupation())) {
+                predicateForOccupation = criteriaBuilder.like(criteriaBuilder.lower(root.get("occupation")),
                         "%" + filterDto.getOccupation().toLowerCase() + "%"
                 );
                 predicates.add(predicateForOccupation);
             }
-            
+
             if(StringUtils.hasLength(filterDto.getCountry())){
-                predicateForCountry=criteriaBuilder.like(criteriaBuilder.lower(root.get("country")),
-                        "%" + filterDto.getCountry().toLowerCase() + "%"
-                );
+                Join<Location, Portfolio> joinLocationPortfolio = root.join("location", JoinType.INNER);
+                Join<Region, Location> joinRegionLocationPortfolio = joinLocationPortfolio.join("region", JoinType.INNER);
+                Join<Country, Region> joinCountryRegionLocationPortfolio = joinRegionLocationPortfolio.join("country", JoinType.INNER);
+
+                predicateForCountry = criteriaBuilder.equal(
+                        joinCountryRegionLocationPortfolio.get("id"),
+                        filterDto.getCountry());
                 predicates.add(predicateForCountry);
+
+
             }
-            
-            if(StringUtils.hasLength(filterDto.getState())){
-                predicateForState=criteriaBuilder.like(criteriaBuilder.lower(root.get("state")),
-                        "%" + filterDto.getState().toLowerCase() + "%"
-                );
-                predicates.add(predicateForState);
+            if (StringUtils.hasLength(filterDto.getRegion())) {
+
+                Join<Location, Portfolio> joinLocationPortfolio = root.join("location", JoinType.INNER);
+                Join<Region, Location> joinRegionLocationPortfolio = joinLocationPortfolio.join("region", JoinType.INNER);
+
+                predicateForRegion = criteriaBuilder.equal(
+                        joinRegionLocationPortfolio.get("id"),
+                        filterDto.getRegion());
+                predicates.add(predicateForRegion);
+                //                predicateForState=criteriaBuilder.like(criteriaBuilder.lower(root.get("state")),
+                //                        "%" + filterDto.getRegion().toLowerCase() + "%"
+                //                );
+                //                predicates.add(predicateForState);
             }
-            
-            
-            
-            
 
 //            if (filterDto.getAge()!=null && StringUtils.hasLength(filterDto.getAge().toString())) {
 //                predicates.add(

@@ -1,12 +1,11 @@
-
 package com.argprogram.portfolio.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class PortfolioBasicDto {
-
+public class PortfolioBasicPatchDto {
+    
     private Long id;
 
     @NullOrNotBlank
@@ -17,24 +16,29 @@ public class PortfolioBasicDto {
 
     @NullOrNotBlank
     private String occupation;
-
-    private LocationDto location;
+    
+    @NullOrNotBlank
+    private String address;
+            
+    private Long regionId;        
 
     @NullOrNotBlank
     private String image;
 
-    public PortfolioBasicDto(
+    public PortfolioBasicPatchDto(
             @JsonProperty(value = "id", required = false) Long id,
             @JsonProperty(value = "firstname", required = true) String firstname,
             @JsonProperty(value = "lastname", required = true) String lastname,
             @JsonProperty(value = "occupation", required = true) String occupation,
-            @JsonProperty(value = "location", required = true) LocationDto location,
+            @JsonProperty(value = "address", required = true) String address,
+            @JsonProperty(value = "regionId", required = true) Long regionId,
             @JsonProperty(value = "image", required = true) String image) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.occupation = occupation;
-        this.location = location;
+        this.address = address;
+        this.regionId = regionId;
         this.image = image;
-
     }
+
 }

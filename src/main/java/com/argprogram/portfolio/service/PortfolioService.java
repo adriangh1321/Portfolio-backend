@@ -3,6 +3,7 @@ package com.argprogram.portfolio.service;
 import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
+import com.argprogram.portfolio.dto.PortfolioBasicPatchDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
 import com.argprogram.portfolio.dto.PortfolioImageDto;
 import com.argprogram.portfolio.dto.PortfolioProfileDto;
@@ -16,7 +17,7 @@ public interface PortfolioService {
 
     Portfolio getPortfolioById(Long id);
 
-    void patchBasicInfo(Long id, PortfolioBasicDto dto);
+    void patchBasicInfo(Long id, PortfolioBasicPatchDto dto);
 
     void patchAboutMe(Long id, PortfolioAboutDto dto);
     

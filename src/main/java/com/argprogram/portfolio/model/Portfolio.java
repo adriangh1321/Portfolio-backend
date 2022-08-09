@@ -46,16 +46,14 @@ public class Portfolio {
     @Column(name = "occupation")
     private String occupation;
 
-    @Column(name = "country")
-    private String country;
-
-    @Column(name = "state")
-    private String state;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
 
     @Column(name = "image")
     @Lob
     private String image;
-    
+
     @Column(name = "banner")
     @Lob
     private String banner;

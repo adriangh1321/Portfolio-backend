@@ -22,12 +22,8 @@ public class PortfolioDto {
     
     @NotBlank
     private String occupation;
-
-    @NotBlank
-    private String country;
-
-    @NotBlank
-    private String state;
+    
+    private LocationDto location;
 
     private String image;
     

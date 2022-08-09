@@ -10,7 +10,7 @@ public class PortfolioFiltersDto {
     private String name;
     private String occupation;
     private String country;
-    private String state;
+    private String region;
     private String order;
     
     

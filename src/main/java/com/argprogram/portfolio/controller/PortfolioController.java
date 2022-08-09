@@ -3,6 +3,7 @@ package com.argprogram.portfolio.controller;
 import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
+import com.argprogram.portfolio.dto.PortfolioBasicPatchDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
 import com.argprogram.portfolio.dto.PortfolioImageDto;
 import com.argprogram.portfolio.dto.PortfolioProfileDto;
@@ -37,7 +38,7 @@ public class PortfolioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> patchBasicInfo(@PathVariable Long id, @RequestBody @Valid PortfolioBasicDto dto) {
+    public ResponseEntity<Void> patchBasicInfo(@PathVariable Long id, @RequestBody @Valid PortfolioBasicPatchDto dto) {
         this.portfolioService.patchBasicInfo(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -90,9 +91,9 @@ public class PortfolioController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String occupation,
             @RequestParam(required = false) String country,
-            @RequestParam(required = false) String state,
+            @RequestParam(required = false) String region,
             @RequestParam(required = false, defaultValue = "ASC") String order) {
-        List<PortfolioProfileDto> result = this.portfolioService.getPortfoliosByFilters(name, occupation, country, state, order);
+        List<PortfolioProfileDto> result = this.portfolioService.getPortfoliosByFilters(name, occupation, country, region, order);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

@@ -3,6 +3,7 @@ package com.argprogram.portfolio.service.impl;
 import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
+import com.argprogram.portfolio.dto.PortfolioBasicPatchDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
 import com.argprogram.portfolio.dto.PortfolioFiltersDto;
 import com.argprogram.portfolio.dto.PortfolioImageDto;
@@ -10,8 +11,11 @@ import com.argprogram.portfolio.dto.PortfolioProfileDto;
 import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.PortfolioMapper;
 import com.argprogram.portfolio.model.ContactInformation;
+import com.argprogram.portfolio.model.Country;
 import com.argprogram.portfolio.model.CurrentCompany;
+import com.argprogram.portfolio.model.Location;
 import com.argprogram.portfolio.model.Portfolio;
+import com.argprogram.portfolio.model.Region;
 import com.argprogram.portfolio.model.User;
 import com.argprogram.portfolio.repository.PortfolioRepository;
 import com.argprogram.portfolio.repository.specifications.PortfolioSpecification;
@@ -21,6 +25,7 @@ import com.argprogram.portfolio.service.ExperienceService;
 import com.argprogram.portfolio.service.InterestService;
 import com.argprogram.portfolio.service.PortfolioService;
 import com.argprogram.portfolio.service.ProjectService;
+import com.argprogram.portfolio.service.RegionService;
 import com.argprogram.portfolio.service.SkillService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,6 +60,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     private AuthService authService;
     @Autowired
     private PortfolioSpecification portfolioSpecification;
+    @Autowired
+    private RegionService regionService;
 
     @Override
     public PortfolioDto getById(Long id) {
@@ -76,13 +83,19 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public void patchBasicInfo(Long id, PortfolioBasicDto dto) {
+    public void patchBasicInfo(Long id, PortfolioBasicPatchDto dto) {
         Portfolio entity = this.getPortfolioById(id);
         entity.setFirstname(dto.getFirstname());
         entity.setLastname(dto.getLastname());
         entity.setOccupation(dto.getOccupation());
-        entity.setCountry(dto.getCountry());
-        entity.setState(dto.getState());
+        Location location = entity.getLocation();
+        location.setAddress(dto.getAddress());
+        Region region = null;
+        if (dto.getRegionId() != null) {
+            region = this.regionService.getById(dto.getRegionId());
+        }
+        location.setRegion(region);
+
         entity.setImage(dto.getImage());
         this.portfolioRepository.save(entity);
 
@@ -93,7 +106,6 @@ public class PortfolioServiceImpl implements PortfolioService {
         Portfolio entity = this.getPortfolioById(id);
         entity.setAboutMe(dto.getAboutMe());
         this.portfolioRepository.save(entity);
-
     }
 
     @Override
@@ -113,8 +125,10 @@ public class PortfolioServiceImpl implements PortfolioService {
         Portfolio portfolio = new Portfolio();
         ContactInformation contactInformation = new ContactInformation();
         CurrentCompany currentCompany = new CurrentCompany();
+        Location location = new Location();
         portfolio.setContactInformation(contactInformation);
         portfolio.setCurrentCompany(currentCompany);
+        portfolio.setLocation(location);
         portfolio.setUser(user);
         return this.portfolioRepository.save(portfolio);
     }
@@ -166,8 +180,8 @@ public class PortfolioServiceImpl implements PortfolioService {
                     dto.setLastname(portfolio.getLastname());
                     dto.setImage(portfolio.getImage());
                     dto.setNickname(portfolio.getUser().getNickname());
-                    dto.setCountry(portfolio.getCountry());
-                    dto.setState(portfolio.getState());
+                    dto.setCountry(portfolio.getLocation().getRegion().getCountry().getName());
+                    dto.setRegion(portfolio.getLocation().getRegion().getName());
                     dto.setOccupation(portfolio.getOccupation());
                     return dto;
                 })
@@ -205,8 +219,16 @@ public class PortfolioServiceImpl implements PortfolioService {
                     dto.setLastname(portfolio.getLastname());
                     dto.setImage(portfolio.getImage());
                     dto.setNickname(portfolio.getUser().getNickname());
-                    dto.setCountry(portfolio.getCountry());
-                    dto.setState(portfolio.getState());
+                    String regionName = null;
+                    String countryName = null;
+                    Region region = portfolio.getLocation().getRegion();
+                    if (region != null) {
+                        regionName = region.getName();
+                        countryName = region.getCountry().getName();
+                    }
+                    dto.setRegion(regionName);
+                    dto.setCountry(countryName);
+
                     dto.setOccupation(portfolio.getOccupation());
                     return dto;
                 })
