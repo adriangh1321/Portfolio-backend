@@ -2,6 +2,7 @@ package com.argprogram.portfolio.controller;
 
 import com.argprogram.portfolio.dto.ExperienceCreateDto;
 import com.argprogram.portfolio.dto.ExperienceDto;
+import com.argprogram.portfolio.dto.ExperiencePutDto;
 import com.argprogram.portfolio.service.ExperienceService;
 import java.util.List;
 import javax.validation.Valid;
@@ -36,7 +37,7 @@ public class ExperienceController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody @Valid  ExperienceDto dto){
+    public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody @Valid  ExperiencePutDto dto){
         this.experienceService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

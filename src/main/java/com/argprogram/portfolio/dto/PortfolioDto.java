@@ -21,13 +21,9 @@ public class PortfolioDto {
     private String lastname;
     
     @NotBlank
-    private String ocupation;
-
-    @NotBlank
-    private String country;
-
-    @NotBlank
-    private String state;
+    private String occupation;
+    
+    private LocationDto location;
 
     private String image;
     

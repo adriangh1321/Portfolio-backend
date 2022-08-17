@@ -1,7 +1,7 @@
-
 package com.argprogram.portfolio.model;
 
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,40 +34,38 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @Table(name = "experiences")
 public class Experience {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(name="position")
+
+    @Column(name = "position")
     private String position;
-    
-    @Column(name="company")
+
+    @Column(name = "company")
     private String company;
-    
-    @Column(name="description")
+
+    @Column(name = "description")
     private String description;
-    
-    @Column(name="image")
+
+    @Column(name = "image")
     @Lob
     private String image;
-    
-    @Column(name="start_date")
+
+    @Column(name = "start_date")
     private LocalDate startDate;
-    
-    @Column(name="end_date")
+
+    @Column(name = "end_date")
     private LocalDate endDate;
-    
-    @Column(name="state")
-    private String state;
-    
-    @Column(name="country")
-    private String country;
-    
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
+
     @ManyToOne
-    @JoinColumn(name="portfolio_id")
+    @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
-    
+
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
     @DateTimeFormat(pattern = "yyyy/MM/dd")
@@ -80,7 +79,7 @@ public class Experience {
     @Column(name = "deleted_at")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private LocalDate deletedAt;
-    
+
     @Column(name = "is_active")
     private Boolean isActive = Boolean.TRUE;
 }

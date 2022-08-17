@@ -19,9 +19,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -65,9 +67,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {       
         httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/v1/auth/register","/v1/auth/login","/v1/portfolios/user/**","/v1/portfolios").permitAll()
+                .authorizeRequests().antMatchers("/v1/auth/register","/v1/auth/login","/v1/portfolios/user/**","/v1/portfolios","/v1/countries","/v1/regions/country/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
                 .accessDeniedHandler(accessDeniedHandler())

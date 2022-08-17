@@ -23,18 +23,18 @@ public class ExperienceCreateDto {
 
     private String image;
 
-    @NotNull
+    
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "The date format must be yyyy-MM-dd")
     private String startDate;
 
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "The date format must be yyyy-MM-dd")
     private String endDate;
-
-    @NotBlank
-    private String state;
-
-    @NotBlank
-    private String country;
+    
+      
+    private Long regionId;    
+    
+    @NullOrNotBlank
+    private String address;
 
     @NotNull
     private Long idPortfolio;

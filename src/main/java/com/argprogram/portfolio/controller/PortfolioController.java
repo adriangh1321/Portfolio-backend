@@ -3,6 +3,7 @@ package com.argprogram.portfolio.controller;
 import com.argprogram.portfolio.dto.PortfolioAboutDto;
 import com.argprogram.portfolio.dto.PortfolioBannerDto;
 import com.argprogram.portfolio.dto.PortfolioBasicDto;
+import com.argprogram.portfolio.dto.PortfolioBasicPatchDto;
 import com.argprogram.portfolio.dto.PortfolioDto;
 import com.argprogram.portfolio.dto.PortfolioImageDto;
 import com.argprogram.portfolio.dto.PortfolioProfileDto;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,7 +38,7 @@ public class PortfolioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> patchBasicInfo(@PathVariable Long id, @RequestBody @Valid PortfolioBasicDto dto) {
+    public ResponseEntity<Void> patchBasicInfo(@PathVariable Long id, @RequestBody @Valid PortfolioBasicPatchDto dto) {
         this.portfolioService.patchBasicInfo(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -68,10 +70,10 @@ public class PortfolioController {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getBanner());
     }
 
-    @GetMapping()
-    public ResponseEntity<List<PortfolioProfileDto>> getProfiles() {
-        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getPortfolioProfiles());
-    }
+//    @GetMapping()
+//    public ResponseEntity<List<PortfolioProfileDto>> getProfiles() {
+//        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getPortfolioProfiles());
+//    }
 
     @GetMapping("/user/{nickname}")
     public ResponseEntity<PortfolioDto> getByUserNickname(@PathVariable String nickname) {
@@ -82,5 +84,15 @@ public class PortfolioController {
     public ResponseEntity<PortfolioImageDto> getImage() {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getImage());
 
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<PortfolioProfileDto>> getPortfoliosByFilters(
+            @RequestParam(required = false) String find,
+            @RequestParam(required = false) String country,
+            @RequestParam(required = false) String region,
+            @RequestParam(required = false, defaultValue = "ASC") String order) {
+        List<PortfolioProfileDto> result = this.portfolioService.getPortfoliosByFilters(find, country, region, order);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

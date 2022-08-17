@@ -2,13 +2,17 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.ExperienceCreateDto;
 import com.argprogram.portfolio.dto.ExperienceDto;
+import com.argprogram.portfolio.dto.ExperiencePutDto;
 import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.ExperienceMapper;
 import com.argprogram.portfolio.model.Experience;
+import com.argprogram.portfolio.model.Location;
 import com.argprogram.portfolio.model.Portfolio;
+import com.argprogram.portfolio.model.Region;
 import com.argprogram.portfolio.repository.ExperienceRepository;
 import com.argprogram.portfolio.service.ExperienceService;
 import com.argprogram.portfolio.service.PortfolioService;
+import com.argprogram.portfolio.service.RegionService;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
@@ -24,6 +28,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     private final ExperienceRepository experienceRepository;
     private final ExperienceMapper experienceMapper;
     private final PortfolioService portfolioService;
+    private final RegionService regionService;
 
     @Override
     public ExperienceDto getById(Long id) {
@@ -49,23 +54,27 @@ public class ExperienceServiceImpl implements ExperienceService {
     }
 
     @Override
-    public void update(Long id, ExperienceDto dto) {
+    public void update(Long id, ExperiencePutDto dto) {
         this.experienceRepository.findById(id)
                 .map(experience -> {
                     experience.setCompany(dto.getCompany());
                     experience.setPosition(dto.getPosition());
-                    experience.setCountry(dto.getCountry());
                     experience.setDescription(dto.getDescription());
                     experience.setImage(dto.getImage());
-                    experience.setState(dto.getState());
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
                     experience.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
                     if (dto.getEndDate() == null) {
                         experience.setEndDate(null);
-                    }else{
+                    } else {
                         experience.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
                     }
-                    
+
+                    Location location = experience.getLocation();
+                    location.setAddress(dto.getAddress());
+
+                    Region region = this.regionService.getById(dto.getRegionId());
+                    location.setRegion(region);
+
                     return this.experienceRepository.save(experience);
                 })
                 .orElseThrow();
@@ -75,7 +84,29 @@ public class ExperienceServiceImpl implements ExperienceService {
     @Override
     public void save(ExperienceCreateDto dto) {
         Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
-        Experience experience = this.experienceMapper.toExperience(dto);
+        Experience experience = new Experience();
+        experience.setPosition(dto.getPosition());
+        experience.setCompany(dto.getCompany());
+        experience.setDescription((dto.getDescription()));
+        experience.setImage(dto.getImage());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
+         if (dto.getStartDate() != null) {
+            experience.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
+        } 
+        
+        if (dto.getEndDate() != null) {
+            experience.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
+        }
+        Location location = new Location();
+        location.setAddress(dto.getAddress());
+
+        Region region = null;
+        if (dto.getRegionId() != null) {
+            region = this.regionService.getById(dto.getRegionId());
+        }
+        location.setRegion(region);
+        experience.setLocation(location);
+
         experience.setPortfolio(portfolio);
         this.experienceRepository.save(experience);
     }
@@ -83,7 +114,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     @Override
     public void delete(Long id) {
         this.experienceRepository.findById(id).ifPresent(this.experienceRepository::delete);
-                
+
     }
 
 }
