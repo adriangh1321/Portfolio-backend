@@ -43,5 +43,5 @@ public interface PortfolioService {
     
     PortfolioImageDto getImage();
     
-    List<PortfolioProfileDto> getPortfoliosByFilters(String name, String occupation,String country,String state, String order);
+    List<PortfolioProfileDto> getPortfoliosByFilters(String find ,String country,String state, String order);
 }

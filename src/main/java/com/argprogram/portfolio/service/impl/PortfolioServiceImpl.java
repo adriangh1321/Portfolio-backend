@@ -210,8 +210,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public List<PortfolioProfileDto> getPortfoliosByFilters(String name, String occupation, String country, String state, String order) {
-        PortfolioFiltersDto filtersDto = new PortfolioFiltersDto(name, occupation, country, state, order);
+    public List<PortfolioProfileDto> getPortfoliosByFilters(String find, String country, String state, String order) {
+        PortfolioFiltersDto filtersDto = new PortfolioFiltersDto(find, country, state, order);
         return this.portfolioRepository.findAll(this.portfolioSpecification.getByFilters(filtersDto)).stream()
                 .map(portfolio -> {
                     PortfolioProfileDto dto = new PortfolioProfileDto();

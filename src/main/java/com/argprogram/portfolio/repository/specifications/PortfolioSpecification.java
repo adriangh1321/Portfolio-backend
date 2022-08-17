@@ -25,37 +25,36 @@ public class PortfolioSpecification {
             Predicate predicateForFirstname;
             Predicate predicateForLastname;
             Predicate predicateForNickname;
-            Predicate predicateForFirtnameOrLastnameOrNickname;
+            Predicate predicateForFirtnameOrLastnameOrNicknameOrOccupation;
             Predicate predicateForOccupation;
             Predicate predicateForCountry;
             Predicate predicateForRegion;
 
-            if (StringUtils.hasLength(filterDto.getName())) {
+            if (StringUtils.hasLength(filterDto.getFind())) {
 
                 predicateForFirstname = criteriaBuilder.like(criteriaBuilder.lower(root.get("firstname")),
-                        "%" + filterDto.getName().toLowerCase() + "%"
+                        "%" + filterDto.getFind().toLowerCase() + "%"
                 );
 
                 predicateForLastname = criteriaBuilder.like(criteriaBuilder.lower(root.get("lastname")),
-                        "%" + filterDto.getName().toLowerCase() + "%"
+                        "%" + filterDto.getFind().toLowerCase() + "%"
                 );
 
                 Join<User, Portfolio> join = root.join("user", JoinType.INNER);
 
                 predicateForNickname = criteriaBuilder.like(criteriaBuilder.lower(join.get("nickname")),
-                        "%" + filterDto.getName().toLowerCase() + "%"
+                        "%" + filterDto.getFind().toLowerCase() + "%"
+                );
+                 predicateForOccupation = criteriaBuilder.like(criteriaBuilder.lower(root.get("occupation")),
+                        "%" + filterDto.getFind().toLowerCase() + "%"
                 );
 
-                predicateForFirtnameOrLastnameOrNickname = criteriaBuilder.or(predicateForFirstname, predicateForLastname, predicateForNickname);
-                predicates.add(predicateForFirtnameOrLastnameOrNickname);
+                predicateForFirtnameOrLastnameOrNicknameOrOccupation = criteriaBuilder.or(predicateForFirstname, predicateForLastname, predicateForNickname,predicateForOccupation);
+                predicates.add(predicateForFirtnameOrLastnameOrNicknameOrOccupation);
+    
             }
 
-            if (StringUtils.hasLength(filterDto.getOccupation())) {
-                predicateForOccupation = criteriaBuilder.like(criteriaBuilder.lower(root.get("occupation")),
-                        "%" + filterDto.getOccupation().toLowerCase() + "%"
-                );
-                predicates.add(predicateForOccupation);
-            }
+
 
             if(StringUtils.hasLength(filterDto.getCountry())){
                 Join<Location, Portfolio> joinLocationPortfolio = root.join("location", JoinType.INNER);

@@ -4652,6 +4652,18 @@ SELECT 1,
        220
        WHERE NOT EXISTS (SELECT * FROM locations WHERE id=1);
 
+INSERT INTO locations (id,address,region_id)
+SELECT 2,
+       "Av. las Tipas 2121 Godoy Cruz",
+       220
+       WHERE NOT EXISTS (SELECT * FROM locations WHERE id=2);
+
+INSERT INTO locations (id,address,region_id)
+SELECT 3,
+       "Ruta Prov. 52 km. 16,5 Las Heras",
+       220
+       WHERE NOT EXISTS (SELECT * FROM locations WHERE id=3);
+
 
 
 
@@ -4708,10 +4720,9 @@ SELECT 1,
        1
 	   WHERE NOT EXISTS (SELECT * FROM portfolios WHERE id=1);
        
-INSERT INTO experiences (id,company,country,created_at,deleted_at,description,end_date,image,is_active,position,start_date,state,updated_at,portfolio_id)
+INSERT INTO experiences (id,company,created_at,deleted_at,description,end_date,image,is_active,position,start_date,updated_at,portfolio_id,location_id)
 SELECT 1,
 	   "Ecogas",
-       "Argentine",
        CURDATE(),
        NULL,
        "Loading and control of documentation of external works for the digitization department of Ecogas",
@@ -4720,15 +4731,14 @@ SELECT 1,
        TRUE,
        "Documentation control",
        '2017-04-17',
-       "Mendoza",
        NULL,
-       1
+       1,
+       2
        WHERE NOT EXISTS (SELECT * FROM experiences WHERE id=1);
        
-INSERT INTO experiences (id,company,country,created_at,deleted_at,description,end_date,image,is_active,position,start_date,state,updated_at,portfolio_id)
+INSERT INTO experiences (id,company,created_at,deleted_at,description,end_date,image,is_active,position,start_date,updated_at,portfolio_id,location_id)
 SELECT 2,
 	   "Aguas Danone S.A.",
-       "Argentine",
        CURDATE(),
        NULL,
        "Quality control at Villavicencio plant",
@@ -4737,9 +4747,9 @@ SELECT 2,
        TRUE,
        "Laboratory analyst",
        '2010-10-01',
-       "Mendoza",
        NULL,
-       1
+       1,
+       3
        WHERE NOT EXISTS (SELECT * FROM experiences WHERE id=2);
        
 INSERT INTO educations (id,created_at,deleted_at,end_date,image,institute,is_active,start_date,title,updated_at,portfolio_id)
