@@ -4392,277 +4392,45 @@ INSERT  IGNORE INTO `regions` VALUES (4120,'Midlands',246);
 
 
 
-
-
-
-
-
-/** COUNTRIES
-INSERT INTO countries (id,name)
-SELECT 1,
-       "Argentine"
-       WHERE NOT EXISTS (SELECT * FROM countries WHERE id=1);
-
-INSERT INTO countries (id,name)
-SELECT 2,
-       "Chile"
-       WHERE NOT EXISTS (SELECT * FROM countries WHERE id=2);
-
-INSERT INTO countries (id,name)
-SELECT 3,
-       "United State"
-       WHERE NOT EXISTS (SELECT * FROM countries WHERE id=3);
-
--- ARGENTINE REGIONS
-INSERT INTO regions (id,name,country_id)
-SELECT 1,
-       "Buenos Aires",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=1);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 2,
-       "Catamarca",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=2);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 3,
-       "Chaco",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=3);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 4,
-       "Chubut",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=4);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 5,
-       "Córdoba",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=5);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 6,
-       "Corrientes",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=6);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 7,
-       "Entre Ríos",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=7);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 8,
-       "Formosa",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=8);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 9,
-       "Jujuy",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=9);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 10,
-       "La Pampa",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=10);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 11,
-       "La Rioja",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=11);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 12,
-       "Mendoza",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=12);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 13,
-       "Misiones",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=13);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 14,
-       "Neuquén",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=14);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 15,
-       "Río Negro",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=15);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 16,
-       "Salta",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=16);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 17,
-       "San Juan",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=17);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 18,
-       "San Luis",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=18);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 19,
-       "Santa Cruz",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=19);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 20,
-       "Santa Fe",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=20);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 21,
-       "Santiago del Estero",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=21);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 22,
-       "Tierra del Fuego",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=22);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 23,
-       "Tucumán",
-       1
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=23);
-
-
-
--- CHILE REGIONS
-INSERT INTO regions (id,name,country_id)
-SELECT 24,
-       "Arica y Parinacota",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=24);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 25,
-       "Tarapacá",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=25);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 26,
-       "Antofagasta",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=26);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 27,
-       "Atacama",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=27);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 28,
-       "Coquimbo",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=28);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 29,
-       "Valparaíso",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=29);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 30,
-       "Metropolitana de Santiago",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=30);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 31,
-       "Libertador General Bernardo O'Higgins",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=31);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 32,
-       "Maule",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=32);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 33,
-       "Biobío",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=33);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 34,
-       "La Araucanía",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=34);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 35,
-       "Los Ríos",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=35);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 36,
-       "Los Lagos",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=36);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 37,
-       "Aysén del General Carlos Ibáñez del Campo",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=37);
-
-INSERT INTO regions (id,name,country_id)
-SELECT 38,
-       "Magallanes",
-       2
-       WHERE NOT EXISTS (SELECT * FROM regions WHERE id=38);*/
-
-
-INSERT INTO locations (id,address,region_id)
+INSERT INTO locations (id,address,region_id,created_at,updated_at,deleted_at,is_active)
 SELECT 1,
        "Barrio Peluqueros",
-       220
+       220,
+       CURDATE(),
+       NULL,
+       NULL,
+       TRUE
        WHERE NOT EXISTS (SELECT * FROM locations WHERE id=1);
 
-INSERT INTO locations (id,address,region_id)
+INSERT INTO locations (id,address,region_id,created_at,updated_at,deleted_at,is_active)
 SELECT 2,
        "Av. las Tipas 2121 Godoy Cruz",
-       220
+       220,
+       CURDATE(),
+       NULL,
+       NULL,
+       TRUE
        WHERE NOT EXISTS (SELECT * FROM locations WHERE id=2);
 
-INSERT INTO locations (id,address,region_id)
+INSERT INTO locations (id,address,region_id,created_at,updated_at,deleted_at,is_active)
 SELECT 3,
        "Ruta Prov. 52 km. 16,5 Las Heras",
-       220
+       220,
+       CURDATE(),
+       NULL,
+       NULL,
+       TRUE
        WHERE NOT EXISTS (SELECT * FROM locations WHERE id=3);
+
+INSERT INTO locations (id,address,region_id,created_at,updated_at,deleted_at,is_active)
+SELECT 4,
+       NULL,
+       220,
+       CURDATE(),
+       NULL,
+       NULL,
+       TRUE
+       WHERE NOT EXISTS (SELECT * FROM locations WHERE id=4);
 
 
 
@@ -4705,7 +4473,7 @@ SELECT 1,
 
 INSERT INTO portfolios (id, about_me,created_at,deleted_at,firstname,image,is_active,lastname,occupation,updated_at,current_company_id,contact_information_id,user_id,location_id)
 SELECT 1,
-       "I am a java backend developer!",
+       "Hi ! I'm a Junior Backend developer. Also I'm Chemical Engineer. My stack is JAVA, Spring, MySQL , Angular Typescript",
        CURDATE(),
        NULL,
        "Gustavo",
@@ -4719,9 +4487,25 @@ SELECT 1,
        1,
        1
 	   WHERE NOT EXISTS (SELECT * FROM portfolios WHERE id=1);
-       
+
 INSERT INTO experiences (id,company,created_at,deleted_at,description,end_date,image,is_active,position,start_date,updated_at,portfolio_id,location_id)
 SELECT 1,
+	   "Alkemy Acceleration",
+       CURDATE(),
+       NULL,
+       "Development of an API for the Acceleration of Alkemy using Java Spring. The Scrum Agile methodology was used",
+       '2022-02-10',
+       "./assets/img/alkemy-logo.png",
+       TRUE,
+       "Backend Developer",
+       '2022-04-01',
+       NULL,
+       1,
+       4
+       WHERE NOT EXISTS (SELECT * FROM experiences WHERE id=1);
+       
+INSERT INTO experiences (id,company,created_at,deleted_at,description,end_date,image,is_active,position,start_date,updated_at,portfolio_id,location_id)
+SELECT 2,
 	   "Ecogas",
        CURDATE(),
        NULL,
@@ -4734,10 +4518,10 @@ SELECT 1,
        NULL,
        1,
        2
-       WHERE NOT EXISTS (SELECT * FROM experiences WHERE id=1);
+       WHERE NOT EXISTS (SELECT * FROM experiences WHERE id=2);
        
 INSERT INTO experiences (id,company,created_at,deleted_at,description,end_date,image,is_active,position,start_date,updated_at,portfolio_id,location_id)
-SELECT 2,
+SELECT 3,
 	   "Aguas Danone S.A.",
        CURDATE(),
        NULL,
@@ -4750,38 +4534,24 @@ SELECT 2,
        NULL,
        1,
        3
-       WHERE NOT EXISTS (SELECT * FROM experiences WHERE id=2);
-       
+       WHERE NOT EXISTS (SELECT * FROM experiences WHERE id=3);
+
 INSERT INTO educations (id,created_at,deleted_at,end_date,image,institute,is_active,start_date,title,updated_at,portfolio_id)
 SELECT 1,
 	   CURDATE(),
        NULL,
-       '2019-11-25',
-       "./assets/img/utn-logo.png",
-       "Universidad Tecnológica Nacional",
+       '2022-02-01',
+       "./assets/img/experience-arg-programa-logo.JPG",
+       "Argentina Programa #YoProgramo",
        TRUE,
-       '2011-03-01',
-       "Chemical Engineer",
+       '2022-08-31',
+       "Fullstack Developer Angular + Spring",
        NULL,
        1
        WHERE NOT EXISTS (SELECT * FROM educations WHERE id=1);
-       
+
 INSERT INTO educations (id,created_at,deleted_at,end_date,image,institute,is_active,start_date,title,updated_at,portfolio_id)
 SELECT 2,
-	   CURDATE(),
-       NULL,
-       '2014-12-01',
-       "./assets/img/utn-logo.png",
-       "Universidad Tecnológica Nacional",
-       TRUE,
-       '2011-03-01',
-       "Chemical Technician",
-       NULL,
-       1
-       WHERE NOT EXISTS (SELECT * FROM educations WHERE id=2);
-       
-INSERT INTO educations (id,created_at,deleted_at,end_date,image,institute,is_active,start_date,title,updated_at,portfolio_id)
-SELECT 3,
 	   CURDATE(),
        NULL,
        '2021-12-01',
@@ -4792,15 +4562,45 @@ SELECT 3,
        "Fullstack Developer",
        NULL,
        1
+       WHERE NOT EXISTS (SELECT * FROM educations WHERE id=2);
+       
+INSERT INTO educations (id,created_at,deleted_at,end_date,image,institute,is_active,start_date,title,updated_at,portfolio_id)
+SELECT 3,
+	   CURDATE(),
+       NULL,
+       '2019-11-25',
+       "./assets/img/utn-logo.png",
+       "Universidad Tecnológica Nacional",
+       TRUE,
+       '2011-03-01',
+       "Chemical Engineer",
+       NULL,
+       1
        WHERE NOT EXISTS (SELECT * FROM educations WHERE id=3);
+       
+INSERT INTO educations (id,created_at,deleted_at,end_date,image,institute,is_active,start_date,title,updated_at,portfolio_id)
+SELECT 4,
+	   CURDATE(),
+       NULL,
+       '2014-12-01',
+       "./assets/img/utn-logo.png",
+       "Universidad Tecnológica Nacional",
+       TRUE,
+       '2011-03-01',
+       "Chemical Technician",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM educations WHERE id=4);
+       
+
        
 INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
 SELECT 1,
 	   CURDATE(),
        NULL,
        TRUE,
-       "Authentication API",
-       75,
+       "Java 11",
+       80,
        "HARD",
        NULL,
        1
@@ -4811,27 +4611,103 @@ SELECT 2,
 	   CURDATE(),
        NULL,
        TRUE,
-      "Spring Security",
-       50,
+      "Spring framework",
+       80,
        "HARD",
        NULL,
        1
        WHERE NOT EXISTS (SELECT * FROM skills WHERE id=2);
-       
+
 INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
 SELECT 3,
 	   CURDATE(),
        NULL,
        TRUE,
-      "Teamwork",
-       90,
-       "SOFT",
+      "MySQL",
+       80,
+       "HARD",
        NULL,
        1
        WHERE NOT EXISTS (SELECT * FROM skills WHERE id=3);
-       
+
 INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
 SELECT 4,
+	   CURDATE(),
+       NULL,
+       TRUE,
+      "Angular framework",
+       60,
+       "HARD",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=4);
+
+INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
+SELECT 5,
+	   CURDATE(),
+       NULL,
+       TRUE,
+      "HTML5",
+       60,
+       "HARD",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=5);
+
+INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
+SELECT 6,
+	   CURDATE(),
+       NULL,
+       TRUE,
+      "CSS3",
+       60,
+       "HARD",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=6);
+
+
+
+
+       
+INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
+SELECT 7,
+	   CURDATE(),
+       NULL,
+       TRUE,
+      "JavaScript",
+       50,
+       "HARD",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=7);
+
+INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
+SELECT 8,
+	   CURDATE(),
+       NULL,
+       TRUE,
+      "TypeScript",
+       50,
+       "HARD",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=8);
+
+INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
+SELECT 9,
+	   CURDATE(),
+       NULL,
+       TRUE,
+      "Technical English reading",
+       75,
+       "SOFT",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=9);
+       
+INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
+SELECT 10,
 	   CURDATE(),
        NULL,
        TRUE,
@@ -4840,10 +4716,10 @@ SELECT 4,
        "SOFT",
        NULL,
        1
-       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=4);
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=10);
        
 INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
-SELECT 5,
+SELECT 11,
 	   CURDATE(),
        NULL,
        TRUE,
@@ -4852,19 +4728,21 @@ SELECT 5,
        "SOFT",
        NULL,
        1
-       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=5);
-       
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=11);
+
 INSERT INTO skills (id, created_at,deleted_at,is_active,name,percent,type,updated_at,portfolio_id)
-SELECT 6,
+SELECT 12,
 	   CURDATE(),
        NULL,
        TRUE,
-      "MVC Design Pattern",
-       90,
-       "HARD",
+      "Teamwork",
+       100,
+       "SOFT",
        NULL,
        1
-       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=6);
+       WHERE NOT EXISTS (SELECT * FROM skills WHERE id=12);
+       
+
 
 INSERT INTO projects (id,created_at,deleted_at,description,is_active,name,updated_at,portfolio_id,image,start_date,end_date,url)
 SELECT 1,
@@ -4940,9 +4818,31 @@ SELECT 5,
        '2021-12-01',
        "github.com/adriangh1321/library"
        WHERE NOT EXISTS (SELECT * FROM projects WHERE id=5);
-       
+
 INSERT INTO interests (id,created_at,deleted_at,image,is_active,name,updated_at,portfolio_id)
 SELECT 1,
+	   CURDATE(),
+       NULL,
+       "./assets/img/programming-interest.jpg",
+       TRUE,
+       "Programming",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM interests WHERE id=1);
+
+INSERT INTO interests (id,created_at,deleted_at,image,is_active,name,updated_at,portfolio_id)
+SELECT 2,
+	   CURDATE(),
+       NULL,
+       "./assets/img/jogging-interest.jpg",
+       TRUE,
+       "Jogging",
+       NULL,
+       1
+       WHERE NOT EXISTS (SELECT * FROM interests WHERE id=2);
+       
+INSERT INTO interests (id,created_at,deleted_at,image,is_active,name,updated_at,portfolio_id)
+SELECT 3,
 	   CURDATE(),
        NULL,
        "./assets/img/game-interest.jpg",
@@ -4950,10 +4850,10 @@ SELECT 1,
        "Games",
        NULL,
        1
-       WHERE NOT EXISTS (SELECT * FROM interests WHERE id=1);
+       WHERE NOT EXISTS (SELECT * FROM interests WHERE id=3);
        
 INSERT INTO interests (id,created_at,deleted_at,image,is_active,name,updated_at,portfolio_id)
-SELECT 2,
+SELECT 4,
 	   CURDATE(),
        NULL,
        "./assets/img/movie-interest.jpg",
@@ -4961,7 +4861,7 @@ SELECT 2,
        "Movies",
        NULL,
        1
-       WHERE NOT EXISTS (SELECT * FROM interests WHERE id=2);
+       WHERE NOT EXISTS (SELECT * FROM interests WHERE id=4);
 
 
 
