@@ -11,6 +11,7 @@ import com.argprogram.portfolio.service.PortfolioService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/portfolios")
 @RequiredArgsConstructor
 public class PortfolioController {
+    
+    @Value("${jwt.secretKey}")
+    private String SECRET_KEY;
 
     private final PortfolioService portfolioService;
 
@@ -94,5 +98,9 @@ public class PortfolioController {
             @RequestParam(required = false, defaultValue = "ASC") String order) {
         List<PortfolioProfileDto> result = this.portfolioService.getPortfoliosByFilters(find, country, region, order);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+    @GetMapping("/clave")
+    public ResponseEntity<String> getClave(){
+        return ResponseEntity.ok(this.SECRET_KEY);
     }
 }

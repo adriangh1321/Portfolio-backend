@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {       
         httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/v1/auth/register","/v1/auth/login","/v1/portfolios/user/**","/v1/portfolios","/v1/countries","/v1/regions/country/**").permitAll()
+                .authorizeRequests().antMatchers("/v1/auth/register","/v1/auth/login","/v1/portfolios/user/**","/v1/portfolios/**","/v1/countries","/v1/regions/country/**").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
                 .accessDeniedHandler(accessDeniedHandler())
