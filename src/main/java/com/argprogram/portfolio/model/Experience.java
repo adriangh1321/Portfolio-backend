@@ -58,7 +58,7 @@ public class Experience {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
