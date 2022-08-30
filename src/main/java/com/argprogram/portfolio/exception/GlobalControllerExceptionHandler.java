@@ -47,5 +47,16 @@ public class GlobalControllerExceptionHandler extends AbstractExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
+    
+    @ExceptionHandler({NotFoundException.class})
+    @ResponseBody
+    public ResponseEntity<ErrorDetails> handleNotFoundException(NotFoundException exc) {
+        ErrorDetails error = ErrorDetails.builder()
+                .code(ApplicationErrorCode.NOT_FOUND)
+                .description(exc.getMessage())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
 
 }

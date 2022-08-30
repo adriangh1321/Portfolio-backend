@@ -4441,7 +4441,7 @@ SELECT 1,
        'adriangh1321@gmail.com',
        TRUE,
        NULL,
-       '$2a$10$DG0WbMHihHQilUssObgK6.b1iO8.RLGzqwYuSLUB31p/KvtEXmmke',
+       '$2a$10$CLE.HqaETscz5GA4dro8du4UQet2NpaxSSy7IdOszWjfJErsNNA4S',
        2,
        'gustavo92' WHERE NOT EXISTS (SELECT * FROM users WHERE id=1);
 
