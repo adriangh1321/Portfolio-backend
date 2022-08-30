@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -69,7 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {       
         httpSecurity.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/v1/auth/register","/v1/auth/login","/v1/portfolios/user/**","/v1/portfolios/**","/v1/countries","/v1/regions/country/**").permitAll()
+                .authorizeRequests().antMatchers("/v1/auth/register","/v1/auth/login","/v1/countries","/v1/regions/country/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/v1/portfolios/user/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/v1/portfolios").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
                 .accessDeniedHandler(accessDeniedHandler())

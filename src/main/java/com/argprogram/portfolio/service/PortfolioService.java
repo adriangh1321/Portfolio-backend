@@ -19,7 +19,7 @@ public interface PortfolioService {
 
     void patchBasicInfo(Long id, PortfolioBasicPatchDto dto);
 
-    void patchAboutMe(Long id, PortfolioAboutDto dto);
+    void patchAboutMe(PortfolioAboutDto dto);
     
     void patchBanner(PortfolioBannerDto dto);
 

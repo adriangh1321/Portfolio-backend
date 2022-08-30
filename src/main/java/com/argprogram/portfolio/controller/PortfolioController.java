@@ -44,9 +44,9 @@ public class PortfolioController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PatchMapping("/{id}/aboutMe")
-    public ResponseEntity<Void> patchAboutMe(@PathVariable Long id, @RequestBody @Valid PortfolioAboutDto dto) {
-        this.portfolioService.patchAboutMe(id, dto);
+    @PatchMapping("/me/aboutMe")
+    public ResponseEntity<Void> patchAboutMe( @RequestBody @Valid PortfolioAboutDto dto) {
+        this.portfolioService.patchAboutMe(dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

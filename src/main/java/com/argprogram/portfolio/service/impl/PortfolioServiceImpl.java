@@ -102,10 +102,10 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public void patchAboutMe(Long id, PortfolioAboutDto dto) {
-        Portfolio entity = this.getPortfolioById(id);
-        entity.setAboutMe(dto.getAboutMe());
-        this.portfolioRepository.save(entity);
+    public void patchAboutMe( PortfolioAboutDto dto) {
+        Portfolio portfolio = this.getPortfolioByUserLogged();
+        portfolio.setAboutMe(dto.getAboutMe());
+        this.portfolioRepository.save(portfolio);
     }
 
     @Override
