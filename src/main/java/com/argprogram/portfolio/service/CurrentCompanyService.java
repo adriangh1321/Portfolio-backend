@@ -5,7 +5,7 @@ import com.argprogram.portfolio.dto.CurrentCompanyDto;
 
 
 public interface CurrentCompanyService {
-    CurrentCompanyDto getById(Long id);
+    CurrentCompanyDto getMeByToken();
           
-    void update(Long id, CurrentCompanyDto dto);
+    void update(CurrentCompanyDto dto);
 }

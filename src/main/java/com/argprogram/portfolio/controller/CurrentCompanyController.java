@@ -20,14 +20,14 @@ public class CurrentCompanyController {
 
     private final CurrentCompanyService currentCompanyService;
 
-    @GetMapping("{id}")
-    public ResponseEntity<CurrentCompanyDto> getById(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.currentCompanyService.getById(id));
+    @GetMapping("/me")
+    public ResponseEntity<CurrentCompanyDto> getMeByToken() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.currentCompanyService.getMeByToken());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid CurrentCompanyDto dto) {
-        this.currentCompanyService.update(id, dto);
+    @PutMapping("/me")
+    public ResponseEntity<Void> update(@RequestBody @Valid CurrentCompanyDto dto) {
+        this.currentCompanyService.update(dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
