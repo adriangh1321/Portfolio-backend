@@ -128,7 +128,7 @@ public class PortfolioServiceImpl implements PortfolioService {
     public PortfolioDto getMeByToken() {
         PortfolioDto dto = this.portfolioMapper.toPortfolioDto(this.getPortfolioByUserLogged());
 
-        dto.setEducations(this.educationService.getAllByPortfolioId(dto.getId()));
+        dto.setEducations(this.educationService.getMeByToken());
         dto.setExperiences(this.experienceService.getAllByPortfolioId(dto.getId()));
         dto.setSkills(this.skillService.getAllByPortfolioId(dto.getId()));
         dto.setProjects(this.projectService.getAllByPortfolioId(dto.getId()));

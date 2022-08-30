@@ -25,14 +25,9 @@ public class EducationController {
 
     private final EducationService educationService;
 
-    @GetMapping(params = "portfolioId")
-    public ResponseEntity<List<EducationDto>> getAllByPortfolioId(@RequestParam("portfolioId") Long portfolioId) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.educationService.getAllByPortfolioId(portfolioId));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<EducationDto>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(this.educationService.getAll());
+    @GetMapping("/me")
+    public ResponseEntity<List<EducationDto>> getMeByToken() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.educationService.getMeByToken());
     }
 
     @PutMapping("/{id}")

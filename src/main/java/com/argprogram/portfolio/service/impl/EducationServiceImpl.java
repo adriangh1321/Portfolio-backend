@@ -34,6 +34,15 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
+    public List<EducationDto> getMeByToken() {
+        Long portfolioId=this.portfolioService.getPortfolioByUserLogged().getId();
+        List<EducationDto> dtos = this.educationRepository.findAllByPortfolioId(portfolioId).stream()
+                .map(entity -> this.educationMapper.toEducationDto(entity))
+                .collect(Collectors.toList());
+        return dtos;
+    }
+    
+     @Override
     public List<EducationDto> getAllByPortfolioId(Long id) {
         List<EducationDto> dtos = this.educationRepository.findAllByPortfolioId(id).stream()
                 .map(entity -> this.educationMapper.toEducationDto(entity))
@@ -47,13 +56,6 @@ public class EducationServiceImpl implements EducationService {
         Education education = this.educationMapper.toEducation(dto);
         education.setPortfolio(portfolio);
         this.educationRepository.save(education);
-    }
-
-    @Override
-    public List<EducationDto> getAll() {
-        return this.educationRepository.findAll().stream()
-                .map(entity -> this.educationMapper.toEducationDto(entity))
-                .collect(Collectors.toList());
     }
 
     @Override

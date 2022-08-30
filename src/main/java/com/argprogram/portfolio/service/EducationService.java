@@ -10,10 +10,10 @@ public interface EducationService {
     
     EducationDto getById(Long id);
     
+    List<EducationDto> getMeByToken();
+    
     List<EducationDto> getAllByPortfolioId(Long id);
-    
-    List<EducationDto> getAll();
-    
+      
     void update(Long id,EducationDto dto);
     
     void save(EducationCreateDto dto);
