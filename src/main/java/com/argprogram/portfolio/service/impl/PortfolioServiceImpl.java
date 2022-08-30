@@ -115,8 +115,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public PortfolioBasicDto getBasicInfo(Long id) {
-        PortfolioBasicDto dto = this.portfolioMapper.toPortfolioBasicDto(this.getPortfolioById(id));
+    public PortfolioBasicDto getBasicInfo() {
+        PortfolioBasicDto dto = this.portfolioMapper.toPortfolioBasicDto(this.getPortfolioByUserLogged());
         return dto;
     }
 

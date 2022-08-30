@@ -25,7 +25,7 @@ public interface PortfolioService {
 
     PortfolioAboutDto getAboutMe();
 
-    PortfolioBasicDto getBasicInfo(Long id);
+    PortfolioBasicDto getBasicInfo();
     
     PortfolioBannerDto getBanner();
 

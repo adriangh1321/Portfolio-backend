@@ -61,9 +61,9 @@ public class PortfolioController {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getAboutMe());
     }
 
-    @GetMapping("/{id}/basicInfo")
-    public ResponseEntity<PortfolioBasicDto> getBasicInfo(@PathVariable Long id) {
-        return ResponseEntity.ok(this.portfolioService.getBasicInfo(id));
+    @GetMapping("/me/basicInfo")
+    public ResponseEntity<PortfolioBasicDto> getBasicInfo() {
+        return ResponseEntity.ok(this.portfolioService.getBasicInfo());
     }
 
     @GetMapping("/me/banner")
