@@ -6,9 +6,7 @@ import com.argprogram.portfolio.dto.ContactInformationDto;
 
 public interface ContactInformationService {
     
-    ContactInformationDto getById(Long id);
-    
-    void update(Long id, ContactInformationDto dto);
+    void update(ContactInformationDto dto);
     
     ContactInformationDto getMeByToken();
 }
