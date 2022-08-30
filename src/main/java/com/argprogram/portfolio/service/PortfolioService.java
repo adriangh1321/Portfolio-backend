@@ -13,8 +13,6 @@ import java.util.List;
 
 public interface PortfolioService {
 
-    PortfolioDto getById(Long id);
-
     Portfolio getPortfolioById(Long id);
 
     void patchBasicInfo(PortfolioBasicPatchDto dto);
@@ -36,8 +34,6 @@ public interface PortfolioService {
     PortfolioDto getMeByToken();
     
     Portfolio getPortfolioByUserLogged();
-    
-    List<PortfolioProfileDto> getPortfolioProfiles();
     
     PortfolioDto getByUserNickname(String nickname);
     

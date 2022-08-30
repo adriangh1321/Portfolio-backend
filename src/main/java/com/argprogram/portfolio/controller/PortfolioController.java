@@ -29,10 +29,6 @@ public class PortfolioController {
 
     private final PortfolioService portfolioService;
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<PortfolioDto> getOneById(@PathVariable Long id) {
-//        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getById(id));
-//    }
     @GetMapping("/me")
     public ResponseEntity<PortfolioDto> getMePortfolio() {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getMeByToken());
@@ -70,11 +66,6 @@ public class PortfolioController {
     public ResponseEntity<PortfolioBannerDto> getBanner() {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getBanner());
     }
-
-//    @GetMapping()
-//    public ResponseEntity<List<PortfolioProfileDto>> getProfiles() {
-//        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getPortfolioProfiles());
-//    }
 
     @GetMapping("/user/{nickname}")
     public ResponseEntity<PortfolioDto> getByUserNickname(@PathVariable String nickname) {

@@ -11,7 +11,6 @@ import com.argprogram.portfolio.dto.PortfolioProfileDto;
 import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.PortfolioMapper;
 import com.argprogram.portfolio.model.ContactInformation;
-import com.argprogram.portfolio.model.Country;
 import com.argprogram.portfolio.model.CurrentCompany;
 import com.argprogram.portfolio.model.Location;
 import com.argprogram.portfolio.model.Portfolio;
@@ -62,19 +61,6 @@ public class PortfolioServiceImpl implements PortfolioService {
     private PortfolioSpecification portfolioSpecification;
     @Autowired
     private RegionService regionService;
-
-    @Override
-    public PortfolioDto getById(Long id) {
-        PortfolioDto dto = this.portfolioMapper.toPortfolioDto(this.getPortfolioById(id));
-
-        dto.setEducations(this.educationService.getAllByPortfolioId(id));
-        dto.setExperiences(this.experienceService.getAllByPortfolioId(id));
-        dto.setSkills(this.skillService.getAllByPortfolioId(id));
-        dto.setProjects(this.projectService.getAllByPortfolioId(id));
-        dto.setInterests(this.interestService.getAllByPortfolioId(id));
-
-        return dto;
-    }
 
     @Override
     public Portfolio getPortfolioById(Long id) {
@@ -169,23 +155,6 @@ public class PortfolioServiceImpl implements PortfolioService {
     public Portfolio getPortfolioByUserLogged() {
         User user = this.authService.getUserLogged();
         return this.getPortfolioByUserId(user.getId());
-    }
-
-    @Override
-    public List<PortfolioProfileDto> getPortfolioProfiles() {
-        return this.portfolioRepository.findAll().stream()
-                .map(portfolio -> {
-                    PortfolioProfileDto dto = new PortfolioProfileDto();
-                    dto.setFirstname(portfolio.getFirstname());
-                    dto.setLastname(portfolio.getLastname());
-                    dto.setImage(portfolio.getImage());
-                    dto.setNickname(portfolio.getUser().getNickname());
-                    dto.setCountry(portfolio.getLocation().getRegion().getCountry().getName());
-                    dto.setRegion(portfolio.getLocation().getRegion().getName());
-                    dto.setOccupation(portfolio.getOccupation());
-                    return dto;
-                })
-                .collect(Collectors.toList());
     }
 
     @Override
