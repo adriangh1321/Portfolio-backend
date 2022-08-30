@@ -56,9 +56,9 @@ public class PortfolioController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/{id}/aboutMe")
-    public ResponseEntity<PortfolioAboutDto> getAboutMe(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getAboutMe(id));
+    @GetMapping("/me/aboutMe")
+    public ResponseEntity<PortfolioAboutDto> getAboutMe() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getAboutMe());
     }
 
     @GetMapping("/{id}/basicInfo")

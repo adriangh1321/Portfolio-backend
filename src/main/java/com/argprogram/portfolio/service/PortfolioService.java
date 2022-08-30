@@ -23,7 +23,7 @@ public interface PortfolioService {
     
     void patchBanner(PortfolioBannerDto dto);
 
-    PortfolioAboutDto getAboutMe(Long id);
+    PortfolioAboutDto getAboutMe();
 
     PortfolioBasicDto getBasicInfo(Long id);
     
