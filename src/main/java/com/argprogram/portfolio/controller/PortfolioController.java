@@ -38,9 +38,9 @@ public class PortfolioController {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getMeByToken());
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Void> patchBasicInfo(@PathVariable Long id, @RequestBody @Valid PortfolioBasicPatchDto dto) {
-        this.portfolioService.patchBasicInfo(id, dto);
+    @PatchMapping("/me")
+    public ResponseEntity<Void> patchBasicInfo(@RequestBody @Valid PortfolioBasicPatchDto dto) {
+        this.portfolioService.patchBasicInfo(dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 

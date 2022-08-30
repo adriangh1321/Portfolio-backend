@@ -83,8 +83,8 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public void patchBasicInfo(Long id, PortfolioBasicPatchDto dto) {
-        Portfolio entity = this.getPortfolioById(id);
+    public void patchBasicInfo(PortfolioBasicPatchDto dto) {
+        Portfolio entity = this.getPortfolioByUserLogged();
         entity.setFirstname(dto.getFirstname());
         entity.setLastname(dto.getLastname());
         entity.setOccupation(dto.getOccupation());
