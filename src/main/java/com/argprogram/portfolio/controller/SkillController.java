@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,7 +29,7 @@ public class SkillController {
         return ResponseEntity.status(HttpStatus.OK).body(this.skillService.getMeByToken());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/me/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid SkillDto dto) {
         this.skillService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

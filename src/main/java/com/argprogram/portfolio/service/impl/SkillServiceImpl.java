@@ -2,6 +2,7 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.SkillCreateDto;
 import com.argprogram.portfolio.dto.SkillDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.SkillMapper;
 import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.model.Skill;
@@ -46,7 +47,6 @@ public class SkillServiceImpl implements SkillService {
         this.skillRepository.save(skill);
     }
 
-
     @Override
     public void delete(Long id) {
         this.skillRepository.findById(id).ifPresent(this.skillRepository::delete);
@@ -54,7 +54,8 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public void update(Long id, SkillDto dto) {
-        this.skillRepository.findById(id)
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.skillRepository.findBySkillIdAndPortfolioId(id, portfolioId)
                 .map(skill -> {
                     skill.setType(dto.getType());
                     skill.setName(dto.getName());
@@ -62,7 +63,7 @@ public class SkillServiceImpl implements SkillService {
 
                     return this.skillRepository.save(skill);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Skill with id " + id + " was not found in your portfolio"));
     }
 
 }
