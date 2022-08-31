@@ -25,14 +25,9 @@ public class SkillController {
 
     private final SkillService skillService;
 
-    @GetMapping(params = "portfolioId")
-    public ResponseEntity<List<SkillDto>> getAllByPortfolioId(@RequestParam("portfolioId") Long portfolioId) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.skillService.getAllByPortfolioId(portfolioId));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<SkillDto>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(this.skillService.getAll());
+    @GetMapping("/me")
+    public ResponseEntity<List<SkillDto>> getMeByToken() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.skillService.getMeByToken());
     }
 
     @PutMapping("/{id}")

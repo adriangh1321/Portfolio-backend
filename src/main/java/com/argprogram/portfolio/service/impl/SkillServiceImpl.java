@@ -22,11 +22,12 @@ public class SkillServiceImpl implements SkillService {
     private final PortfolioService portfolioService;
 
     @Override
-    public SkillDto getById(Long id) {
-        SkillDto dto = this.skillRepository.findById(id)
+    public List<SkillDto> getMeByToken() {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        List<SkillDto> dtos = this.skillRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.skillMapper.toSkillDto(entity))
-                .orElseThrow();
-        return dto;
+                .collect(Collectors.toList());
+        return dtos;
     }
 
     @Override
@@ -45,12 +46,6 @@ public class SkillServiceImpl implements SkillService {
         this.skillRepository.save(skill);
     }
 
-    @Override
-    public List<SkillDto> getAll() {
-        return this.skillRepository.findAll().stream()
-                .map(entity -> this.skillMapper.toSkillDto(entity))
-                .collect(Collectors.toList());
-    }
 
     @Override
     public void delete(Long id) {
