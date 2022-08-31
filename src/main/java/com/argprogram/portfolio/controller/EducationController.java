@@ -1,6 +1,5 @@
 package com.argprogram.portfolio.controller;
 
-import com.argprogram.portfolio.dto.EducationCreateDto;
 import com.argprogram.portfolio.dto.EducationDto;
 import com.argprogram.portfolio.service.EducationService;
 import java.util.List;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -37,7 +35,7 @@ public class EducationController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid EducationCreateDto dto) {
+    public ResponseEntity<Void> save(@RequestBody @Valid EducationDto dto) {
         this.educationService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

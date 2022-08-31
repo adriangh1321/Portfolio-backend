@@ -1,7 +1,6 @@
 
 package com.argprogram.portfolio.service;
 
-import com.argprogram.portfolio.dto.EducationCreateDto;
 import com.argprogram.portfolio.dto.EducationDto;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface EducationService {
       
     void update(Long id,EducationDto dto);
     
-    void save(EducationCreateDto dto);
+    void save(EducationDto dto);
     
     void delete(Long id);
 }

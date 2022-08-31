@@ -1,6 +1,5 @@
 package com.argprogram.portfolio.service.impl;
 
-import com.argprogram.portfolio.dto.EducationCreateDto;
 import com.argprogram.portfolio.dto.EducationDto;
 import com.argprogram.portfolio.mapper.EducationMapper;
 import com.argprogram.portfolio.model.Education;
@@ -51,8 +50,8 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public void save(EducationCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+    public void save(EducationDto dto) {
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Education education = this.educationMapper.toEducation(dto);
         education.setPortfolio(portfolio);
         this.educationRepository.save(education);
