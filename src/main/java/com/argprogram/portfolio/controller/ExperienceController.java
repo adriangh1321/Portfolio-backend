@@ -30,7 +30,7 @@ public class ExperienceController {
         return ResponseEntity.status(HttpStatus.OK).body(this.experienceService.getMeByToken());
     } 
     
-    @PutMapping("/{id}")
+    @PutMapping("/me/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody @Valid  ExperiencePutDto dto){
         this.experienceService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

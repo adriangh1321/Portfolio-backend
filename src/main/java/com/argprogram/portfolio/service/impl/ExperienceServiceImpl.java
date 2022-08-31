@@ -49,7 +49,8 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public void update(Long id, ExperiencePutDto dto) {
-        this.experienceRepository.findById(id)
+         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.experienceRepository.findByExperienceIdAndPortfolioId(id, portfolioId)
                 .map(experience -> {
                     experience.setCompany(dto.getCompany());
                     experience.setPosition(dto.getPosition());
@@ -71,7 +72,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
                     return this.experienceRepository.save(experience);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Experience with id "+id+" was not found in your portfolio"));
 
     }
 
