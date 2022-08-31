@@ -2,12 +2,9 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.InterestCreateDto;
 import com.argprogram.portfolio.dto.InterestDto;
-import com.argprogram.portfolio.dto.SkillCreateDto;
-import com.argprogram.portfolio.dto.SkillDto;
 import com.argprogram.portfolio.mapper.InterestMapper;
 import com.argprogram.portfolio.model.Interest;
 import com.argprogram.portfolio.model.Portfolio;
-import com.argprogram.portfolio.model.Skill;
 import com.argprogram.portfolio.repository.InterestRepository;
 import com.argprogram.portfolio.service.InterestService;
 import com.argprogram.portfolio.service.PortfolioService;

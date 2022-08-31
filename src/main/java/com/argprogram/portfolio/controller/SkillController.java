@@ -1,6 +1,6 @@
 package com.argprogram.portfolio.controller;
 
-import com.argprogram.portfolio.dto.SkillCreateDto;
+
 import com.argprogram.portfolio.dto.SkillDto;
 import com.argprogram.portfolio.service.SkillService;
 import java.util.List;
@@ -35,8 +35,8 @@ public class SkillController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping
-    public ResponseEntity<Void> save(@RequestBody @Valid SkillCreateDto dto) {
+    @PostMapping("/me")
+    public ResponseEntity<Void> save(@RequestBody @Valid SkillDto dto) {
         this.skillService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

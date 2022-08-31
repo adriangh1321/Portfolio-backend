@@ -1,6 +1,5 @@
 package com.argprogram.portfolio.service.impl;
 
-import com.argprogram.portfolio.dto.SkillCreateDto;
 import com.argprogram.portfolio.dto.SkillDto;
 import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.SkillMapper;
@@ -40,8 +39,8 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public void save(SkillCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+    public void save(SkillDto dto) {
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Skill skill = this.skillMapper.toSkill(dto);
         skill.setPortfolio(portfolio);
         this.skillRepository.save(skill);
