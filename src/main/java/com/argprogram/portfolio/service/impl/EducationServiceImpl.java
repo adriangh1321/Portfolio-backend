@@ -26,15 +26,6 @@ public class EducationServiceImpl implements EducationService {
     private final PortfolioService portfolioService;
 
     @Override
-    public EducationDto getById(Long id) {
-        EducationDto dto = this.educationRepository.findById(id)
-                .map(entity -> this.educationMapper.toEducationDto(entity))
-                .orElseThrow();
-        return dto;
-
-    }
-
-    @Override
     public List<EducationDto> getMeByToken() {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
         List<EducationDto> dtos = this.educationRepository.findAllByPortfolioId(portfolioId).stream()

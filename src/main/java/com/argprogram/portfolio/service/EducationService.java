@@ -7,9 +7,7 @@ import java.util.List;
 
 
 public interface EducationService {
-    
-    EducationDto getById(Long id);
-    
+       
     List<EducationDto> getMeByToken();
     
     List<EducationDto> getAllByPortfolioId(Long id);

@@ -31,11 +31,12 @@ public class ExperienceServiceImpl implements ExperienceService {
     private final RegionService regionService;
 
     @Override
-    public ExperienceDto getById(Long id) {
-        ExperienceDto dto = this.experienceRepository.findById(id)
+    public List<ExperienceDto> getMeByToken() {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        List<ExperienceDto> dtos = this.experienceRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.experienceMapper.toExperienceDto(entity))
-                .orElseThrow();
-        return dto;
+                .collect(Collectors.toList());
+        return dtos;
     }
 
     @Override
@@ -44,13 +45,6 @@ public class ExperienceServiceImpl implements ExperienceService {
                 .map(entity -> this.experienceMapper.toExperienceDto(entity))
                 .collect(Collectors.toList());
         return dtos;
-    }
-
-    @Override
-    public List<ExperienceDto> getAll() {
-        return this.experienceRepository.findAll().stream()
-                .map(entity -> this.experienceMapper.toExperienceDto(entity))
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -90,10 +84,10 @@ public class ExperienceServiceImpl implements ExperienceService {
         experience.setDescription((dto.getDescription()));
         experience.setImage(dto.getImage());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT);
-         if (dto.getStartDate() != null) {
+        if (dto.getStartDate() != null) {
             experience.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
-        } 
-        
+        }
+
         if (dto.getEndDate() != null) {
             experience.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
         }

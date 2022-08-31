@@ -8,13 +8,11 @@ import java.util.List;
 
 
 public interface ExperienceService {
+       
+    List<ExperienceDto> getMeByToken();
     
-    ExperienceDto getById(Long id);
-    
-    List<ExperienceDto> getAllByPortfolioId(Long id);
-    
-    List<ExperienceDto> getAll();
-    
+    List<ExperienceDto> getAllByPortfolioId(Long id);   
+   
     void update(Long id,ExperiencePutDto dto);
     
     void save(ExperienceCreateDto dto);
