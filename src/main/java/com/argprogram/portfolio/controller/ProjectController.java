@@ -30,7 +30,7 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.OK).body(this.projectService.getMeByToken());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/me/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid ProjectDto dto) {
         this.projectService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

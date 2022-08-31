@@ -2,6 +2,7 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.ProjectCreateDto;
 import com.argprogram.portfolio.dto.ProjectDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.ProjectMapper;
 import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.model.Project;
@@ -56,7 +57,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void update(Long id, ProjectDto dto) {
-        this.projectRepository.findById(id)
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.projectRepository.findByProjectIdAndPortfolioId(id, portfolioId)
                 .map(project -> {
                     project.setName(dto.getName());
                     project.setDescription(dto.getDescription());
@@ -72,6 +74,6 @@ public class ProjectServiceImpl implements ProjectService {
 
                     return this.projectRepository.save(project);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Project with id " + id + " was not found in your portfolio"));
     }
 }
