@@ -25,11 +25,12 @@ public class ProjectServiceImpl implements ProjectService {
     private final PortfolioService portfolioService;
 
     @Override
-    public ProjectDto getById(Long id) {
-        ProjectDto dto = this.projectRepository.findById(id)
+    public List<ProjectDto> getMeByToken() {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        List<ProjectDto> dtos = this.projectRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.projectMapper.toProjectDto(entity))
-                .orElseThrow();
-        return dto;
+                .collect(Collectors.toList());
+        return dtos;
     }
 
     @Override
@@ -49,13 +50,6 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectDto> getAll() {
-        return this.projectRepository.findAll().stream()
-                .map(entity -> this.projectMapper.toProjectDto(entity))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void delete(Long id) {
         this.projectRepository.findById(id).ifPresent(this.projectRepository::delete);
     }
@@ -71,7 +65,7 @@ public class ProjectServiceImpl implements ProjectService {
                     project.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
                     if (dto.getEndDate() == null) {
                         project.setEndDate(null);
-                    }else{
+                    } else {
                         project.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
                     }
                     project.setUrl(dto.getUrl());
