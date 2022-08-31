@@ -36,7 +36,7 @@ public class ExperienceController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     
-    @PostMapping
+    @PostMapping("/me")
     public ResponseEntity<Void> save(@RequestBody @Valid ExperienceCreateDto dto){
         this.experienceService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();

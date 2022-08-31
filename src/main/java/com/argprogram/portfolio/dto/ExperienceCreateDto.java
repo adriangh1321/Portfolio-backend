@@ -36,7 +36,5 @@ public class ExperienceCreateDto {
     @NullOrNotBlank
     private String address;
 
-    @NotNull
-    private Long idPortfolio;
 
 }

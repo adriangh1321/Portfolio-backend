@@ -78,7 +78,7 @@ public class ExperienceServiceImpl implements ExperienceService {
 
     @Override
     public void save(ExperienceCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Experience experience = new Experience();
         experience.setPosition(dto.getPosition());
         experience.setCompany(dto.getCompany());
