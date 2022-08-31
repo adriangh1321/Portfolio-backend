@@ -61,7 +61,8 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public void delete(Long id) {
-        this.educationRepository.findById(id).ifPresent(this.educationRepository::delete);
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.educationRepository.findByEducationIdAndPortfolioId(id, portfolioId).ifPresent(this.educationRepository::delete);
     }
 
     @Override

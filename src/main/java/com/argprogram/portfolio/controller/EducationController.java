@@ -41,7 +41,7 @@ public class EducationController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/me/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.educationService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
