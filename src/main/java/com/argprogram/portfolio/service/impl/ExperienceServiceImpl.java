@@ -24,12 +24,12 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ExperienceServiceImpl implements ExperienceService {
-
+    
     private final ExperienceRepository experienceRepository;
     private final ExperienceMapper experienceMapper;
     private final PortfolioService portfolioService;
     private final RegionService regionService;
-
+    
     @Override
     public List<ExperienceDto> getMeByToken() {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
@@ -38,7 +38,7 @@ public class ExperienceServiceImpl implements ExperienceService {
                 .collect(Collectors.toList());
         return dtos;
     }
-
+    
     @Override
     public List<ExperienceDto> getAllByPortfolioId(Long id) {
         List<ExperienceDto> dtos = this.experienceRepository.findAllByPortfolioId(id).stream()
@@ -46,10 +46,10 @@ public class ExperienceServiceImpl implements ExperienceService {
                 .collect(Collectors.toList());
         return dtos;
     }
-
+    
     @Override
     public void update(Long id, ExperiencePutDto dto) {
-         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
         this.experienceRepository.findByExperienceIdAndPortfolioId(id, portfolioId)
                 .map(experience -> {
                     experience.setCompany(dto.getCompany());
@@ -63,19 +63,19 @@ public class ExperienceServiceImpl implements ExperienceService {
                     } else {
                         experience.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
                     }
-
+                    
                     Location location = experience.getLocation();
                     location.setAddress(dto.getAddress());
-
+                    
                     Region region = this.regionService.getById(dto.getRegionId());
                     location.setRegion(region);
-
+                    
                     return this.experienceRepository.save(experience);
                 })
-                .orElseThrow(() -> new NotFoundException("Experience with id "+id+" was not found in your portfolio"));
-
+                .orElseThrow(() -> new NotFoundException("Experience with id " + id + " was not found in your portfolio"));
+        
     }
-
+    
     @Override
     public void save(ExperienceCreateDto dto) {
         Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
@@ -88,28 +88,29 @@ public class ExperienceServiceImpl implements ExperienceService {
         if (dto.getStartDate() != null) {
             experience.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
         }
-
+        
         if (dto.getEndDate() != null) {
             experience.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
         }
         Location location = new Location();
         location.setAddress(dto.getAddress());
-
+        
         Region region = null;
         if (dto.getRegionId() != null) {
             region = this.regionService.getById(dto.getRegionId());
         }
         location.setRegion(region);
         experience.setLocation(location);
-
+        
         experience.setPortfolio(portfolio);
         this.experienceRepository.save(experience);
     }
-
+    
     @Override
     public void delete(Long id) {
-        this.experienceRepository.findById(id).ifPresent(this.experienceRepository::delete);
-
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.experienceRepository.findByExperienceIdAndPortfolioId(id, portfolioId).ifPresent(this.experienceRepository::delete);
+        
     }
-
+    
 }

@@ -1,7 +1,6 @@
 package com.argprogram.portfolio.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
