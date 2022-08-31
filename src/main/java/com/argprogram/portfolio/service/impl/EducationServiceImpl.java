@@ -1,6 +1,8 @@
 package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.EducationDto;
+import com.argprogram.portfolio.dto.EducationPutDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.EducationMapper;
 import com.argprogram.portfolio.model.Education;
 import com.argprogram.portfolio.model.Portfolio;
@@ -34,14 +36,14 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public List<EducationDto> getMeByToken() {
-        Long portfolioId=this.portfolioService.getPortfolioByUserLogged().getId();
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
         List<EducationDto> dtos = this.educationRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.educationMapper.toEducationDto(entity))
                 .collect(Collectors.toList());
         return dtos;
     }
-    
-     @Override
+
+    @Override
     public List<EducationDto> getAllByPortfolioId(Long id) {
         List<EducationDto> dtos = this.educationRepository.findAllByPortfolioId(id).stream()
                 .map(entity -> this.educationMapper.toEducationDto(entity))
@@ -63,8 +65,9 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public void update(Long id, EducationDto dto) {
-        this.educationRepository.findById(id)
+    public void update(Long id, EducationPutDto dto) {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.educationRepository.findByEducationIdAndPortfolioId(id, portfolioId)
                 .map(education -> {
                     education.setTitle(dto.getTitle());
                     education.setInstitute(dto.getInstitute());
@@ -80,7 +83,7 @@ public class EducationServiceImpl implements EducationService {
 
                     return this.educationRepository.save(education);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Education with id "+id+" was not found in your portfolio"));
     }
 
 }

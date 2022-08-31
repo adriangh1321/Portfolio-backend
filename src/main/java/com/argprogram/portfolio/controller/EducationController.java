@@ -1,6 +1,7 @@
 package com.argprogram.portfolio.controller;
 
 import com.argprogram.portfolio.dto.EducationDto;
+import com.argprogram.portfolio.dto.EducationPutDto;
 import com.argprogram.portfolio.service.EducationService;
 import java.util.List;
 import javax.validation.Valid;
@@ -28,13 +29,13 @@ public class EducationController {
         return ResponseEntity.status(HttpStatus.OK).body(this.educationService.getMeByToken());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid EducationDto dto) {
+    @PutMapping("/me/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid EducationPutDto dto) {
         this.educationService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping
+    @PostMapping("/me")
     public ResponseEntity<Void> save(@RequestBody @Valid EducationDto dto) {
         this.educationService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
