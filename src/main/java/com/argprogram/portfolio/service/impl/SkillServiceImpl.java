@@ -48,7 +48,8 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public void delete(Long id) {
-        this.skillRepository.findById(id).ifPresent(this.skillRepository::delete);
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.skillRepository.findBySkillIdAndPortfolioId(id, portfolioId).ifPresent(this.skillRepository::delete);
     }
 
     @Override
