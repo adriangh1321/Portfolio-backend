@@ -2,6 +2,7 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.InterestCreateDto;
 import com.argprogram.portfolio.dto.InterestDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.InterestMapper;
 import com.argprogram.portfolio.model.Interest;
 import com.argprogram.portfolio.model.Portfolio;
@@ -54,12 +55,13 @@ public class InterestServiceImpl implements InterestService {
 
     @Override
     public void update(Long id, InterestDto dto) {
-        this.interestRepository.findById(id)
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.interestRepository.findByInterestIdAndPortfolioId(id, portfolioId)
                 .map(interest -> {
                     interest.setName(dto.getName());
                     interest.setImage(dto.getImage());
                     return this.interestRepository.save(interest);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Interest with id " + id + " was not found in your portfolio"));
     }
 }

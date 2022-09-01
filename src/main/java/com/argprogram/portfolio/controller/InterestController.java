@@ -33,7 +33,7 @@ public class InterestController {
         return ResponseEntity.status(HttpStatus.OK).body(this.interestService.getMeByToken());
     }   
     
-    @PutMapping("/{id}")
+    @PutMapping("/me/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody @Valid  InterestDto dto){
         this.interestService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
