@@ -44,7 +44,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void save(ProjectCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Project project = this.projectMapper.toProject(dto);
         project.setPortfolio(portfolio);
         this.projectRepository.save(project);

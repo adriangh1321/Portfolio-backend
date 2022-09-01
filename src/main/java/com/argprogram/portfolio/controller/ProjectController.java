@@ -36,7 +36,7 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping
+    @PostMapping("/me")
     public ResponseEntity<Void> save(@RequestBody @Valid ProjectCreateDto dto) {
         this.projectService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
