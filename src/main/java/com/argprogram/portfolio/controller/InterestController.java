@@ -28,16 +28,10 @@ public class InterestController {
     
     private final InterestService interestService;
     
-    
-    @GetMapping(params = "portfolioId")
-    public ResponseEntity<List<InterestDto>> getAllByPortfolioId(@RequestParam("portfolioId") Long portfolioId) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.interestService.getAllByPortfolioId(portfolioId));
-    }
-    
-    @GetMapping
-    public ResponseEntity<List<InterestDto>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(this.interestService.getAll());
-    }
+     @GetMapping("/me")
+    public ResponseEntity<List<InterestDto>> getMeByToken() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.interestService.getMeByToken());
+    }   
     
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody @Valid  InterestDto dto){

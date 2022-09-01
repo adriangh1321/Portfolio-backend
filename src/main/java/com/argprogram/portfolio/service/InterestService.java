@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface InterestService {
 
-    InterestDto getById(Long id);
+    List<InterestDto> getMeByToken();
 
     List<InterestDto> getAllByPortfolioId(Long id);
-
-    List<InterestDto> getAll();
 
     void update(Long id, InterestDto dto);
 

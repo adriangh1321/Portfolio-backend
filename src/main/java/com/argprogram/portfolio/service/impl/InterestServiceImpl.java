@@ -22,12 +22,12 @@ public class InterestServiceImpl implements InterestService {
     private final PortfolioService portfolioService;
 
     @Override
-    public InterestDto getById(Long id) {
-        InterestDto dto = this.interestRepository.findById(id)
+    public List<InterestDto> getMeByToken() {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        List<InterestDto> dtos = this.interestRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.interestMapper.toInterestDto(entity))
-                .orElseThrow();
-        return dto;
-
+                .collect(Collectors.toList());
+        return dtos;
     }
 
     @Override
@@ -45,13 +45,6 @@ public class InterestServiceImpl implements InterestService {
         Interest interest = this.interestMapper.toInterest(dto);
         interest.setPortfolio(portfolio);
         this.interestRepository.save(interest);
-    }
-
-    @Override
-    public List<InterestDto> getAll() {
-        return this.interestRepository.findAll().stream()
-                .map(entity -> this.interestMapper.toInterestDto(entity))
-                .collect(Collectors.toList());
     }
 
     @Override
