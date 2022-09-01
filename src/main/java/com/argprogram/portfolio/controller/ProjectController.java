@@ -42,7 +42,7 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/me/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.projectService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

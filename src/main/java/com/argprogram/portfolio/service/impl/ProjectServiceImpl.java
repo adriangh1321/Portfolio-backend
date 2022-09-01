@@ -52,7 +52,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(Long id) {
-        this.projectRepository.findById(id).ifPresent(this.projectRepository::delete);
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.projectRepository.findByProjectIdAndPortfolioId(id, portfolioId).ifPresent(this.projectRepository::delete);
     }
 
     @Override
