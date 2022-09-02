@@ -50,7 +50,8 @@ public class InterestServiceImpl implements InterestService {
 
     @Override
     public void delete(Long id) {
-        this.interestRepository.findById(id).ifPresent(this.interestRepository::delete);
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.interestRepository.findByInterestIdAndPortfolioId(id, portfolioId).ifPresent(this.interestRepository::delete);
     }
 
     @Override
