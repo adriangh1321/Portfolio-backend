@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 
@@ -30,7 +31,8 @@ public class AuthServiceImpl implements AuthService {
     private JwtUtils jwtTokenUtil;
     @Autowired
     private UserMapper userMapper;
-
+    
+    @Transactional(readOnly=true)
     @Override
     public User getUserLogged() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -39,7 +41,8 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
     }
-
+    
+    @Transactional(readOnly=true)
     @Override
     public AuthenticationResponse login(AuthenticationRequest authRequest) {
         UserDetails userDetails;
@@ -59,6 +62,7 @@ public class AuthServiceImpl implements AuthService {
 
     }
 
+    @Transactional(readOnly=true)
     @Override
     public UserDto getMeUser() {
       return this.userMapper.toUseDto(this.getUserLogged());

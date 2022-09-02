@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class SkillServiceImpl implements SkillService {
     private final SkillMapper skillMapper;
     private final PortfolioService portfolioService;
 
+    @Transactional(readOnly=true)
     @Override
     public List<SkillDto> getMeByToken() {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
@@ -30,6 +32,7 @@ public class SkillServiceImpl implements SkillService {
         return dtos;
     }
 
+    @Transactional(readOnly=true)
     @Override
     public List<SkillDto> getAllByPortfolioId(Long id) {
         List<SkillDto> dtos = this.skillRepository.findAllByPortfolioId(id).stream()
@@ -38,6 +41,7 @@ public class SkillServiceImpl implements SkillService {
         return dtos;
     }
 
+    @Transactional
     @Override
     public void save(SkillDto dto) {
         Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
@@ -46,12 +50,14 @@ public class SkillServiceImpl implements SkillService {
         this.skillRepository.save(skill);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
         this.skillRepository.findBySkillIdAndPortfolioId(id, portfolioId).ifPresent(this.skillRepository::delete);
     }
 
+    @Transactional
     @Override
     public void update(Long id, SkillDto dto) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();

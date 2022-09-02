@@ -8,6 +8,7 @@ import com.argprogram.portfolio.service.ContactInformationService;
 import com.argprogram.portfolio.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class ContactInformationServiceImpl implements ContactInformationService 
     private final ContactInformationMapper contactInformationMapper;
     private final PortfolioService portfolioService;
 
+    @Transactional
     @Override
     public void update(ContactInformationDto dto) {
         ContactInformation contactInformation = this.portfolioService.getPortfolioByUserLogged().getContactInformation();
@@ -29,7 +31,8 @@ public class ContactInformationServiceImpl implements ContactInformationService 
         contactInformation.setInstagram(dto.getInstagram());
         this.contactInformationRepository.save(contactInformation);
     }
-
+    
+    @Transactional(readOnly=true)
     @Override
     public ContactInformationDto getMeByToken() {
         ContactInformation contactInformation = this.portfolioService.getPortfolioByUserLogged().getContactInformation();

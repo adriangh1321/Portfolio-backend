@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +31,7 @@ public class ExperienceServiceImpl implements ExperienceService {
     private final PortfolioService portfolioService;
     private final RegionService regionService;
     
+    @Transactional(readOnly=true)
     @Override
     public List<ExperienceDto> getMeByToken() {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
@@ -39,6 +41,7 @@ public class ExperienceServiceImpl implements ExperienceService {
         return dtos;
     }
     
+    @Transactional(readOnly=true)
     @Override
     public List<ExperienceDto> getAllByPortfolioId(Long id) {
         List<ExperienceDto> dtos = this.experienceRepository.findAllByPortfolioId(id).stream()
@@ -47,6 +50,7 @@ public class ExperienceServiceImpl implements ExperienceService {
         return dtos;
     }
     
+    @Transactional
     @Override
     public void update(Long id, ExperiencePutDto dto) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
@@ -76,6 +80,7 @@ public class ExperienceServiceImpl implements ExperienceService {
         
     }
     
+    @Transactional
     @Override
     public void save(ExperienceCreateDto dto) {
         Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
@@ -106,6 +111,7 @@ public class ExperienceServiceImpl implements ExperienceService {
         this.experienceRepository.save(experience);
     }
     
+    @Transactional
     @Override
     public void delete(Long id) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();

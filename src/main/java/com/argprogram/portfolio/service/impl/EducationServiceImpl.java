@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class EducationServiceImpl implements EducationService {
     private final EducationMapper educationMapper;
     private final PortfolioService portfolioService;
 
+    @Transactional(readOnly = true)
     @Override
     public List<EducationDto> getMeByToken() {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
@@ -34,6 +36,7 @@ public class EducationServiceImpl implements EducationService {
         return dtos;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<EducationDto> getAllByPortfolioId(Long id) {
         List<EducationDto> dtos = this.educationRepository.findAllByPortfolioId(id).stream()
@@ -42,6 +45,7 @@ public class EducationServiceImpl implements EducationService {
         return dtos;
     }
 
+    @Transactional
     @Override
     public void save(EducationDto dto) {
         Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
@@ -50,12 +54,14 @@ public class EducationServiceImpl implements EducationService {
         this.educationRepository.save(education);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
         this.educationRepository.findByEducationIdAndPortfolioId(id, portfolioId).ifPresent(this.educationRepository::delete);
     }
 
+    @Transactional
     @Override
     public void update(Long id, EducationPutDto dto) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
@@ -75,7 +81,7 @@ public class EducationServiceImpl implements EducationService {
 
                     return this.educationRepository.save(education);
                 })
-                .orElseThrow(() -> new NotFoundException("Education with id "+id+" was not found in your portfolio"));
+                .orElseThrow(() -> new NotFoundException("Education with id " + id + " was not found in your portfolio"));
     }
 
 }

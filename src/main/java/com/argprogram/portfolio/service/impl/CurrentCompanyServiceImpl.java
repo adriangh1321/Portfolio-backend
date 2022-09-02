@@ -8,6 +8,7 @@ import com.argprogram.portfolio.service.CurrentCompanyService;
 import com.argprogram.portfolio.service.PortfolioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class CurrentCompanyServiceImpl implements CurrentCompanyService {
     private final CurrentCompanyMapper currentCompanyMapper;
     private final PortfolioService portfolioService;
 
+    @Transactional(readOnly=true)
     @Override
     public CurrentCompanyDto getMeByToken() {
         CurrentCompany currentCompany = this.portfolioService.getPortfolioByUserLogged().getCurrentCompany();
@@ -24,6 +26,7 @@ public class CurrentCompanyServiceImpl implements CurrentCompanyService {
         return dto;
     }
 
+    @Transactional
     @Override
     public void update(CurrentCompanyDto dto) {
         CurrentCompany currentCompany = this.portfolioService.getPortfolioByUserLogged().getCurrentCompany();
