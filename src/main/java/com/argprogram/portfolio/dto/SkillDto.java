@@ -1,7 +1,6 @@
 package com.argprogram.portfolio.dto;
 
 import com.argprogram.portfolio.enumeration.SkillType;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;

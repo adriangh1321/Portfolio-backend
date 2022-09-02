@@ -1,8 +1,6 @@
 
 package com.argprogram.portfolio.controller;
 
-import com.argprogram.portfolio.dto.ExperienceCreateDto;
-import com.argprogram.portfolio.dto.ExperienceDto;
 import com.argprogram.portfolio.dto.InterestCreateDto;
 import com.argprogram.portfolio.dto.InterestDto;
 import com.argprogram.portfolio.service.InterestService;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
