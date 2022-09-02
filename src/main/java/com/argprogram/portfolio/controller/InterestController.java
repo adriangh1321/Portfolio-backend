@@ -39,7 +39,7 @@ public class InterestController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     
-    @PostMapping
+    @PostMapping("/me")
     public ResponseEntity<Void> save(@RequestBody @Valid InterestCreateDto dto){
         this.interestService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();

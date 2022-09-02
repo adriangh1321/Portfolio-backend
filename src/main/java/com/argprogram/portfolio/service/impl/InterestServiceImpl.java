@@ -42,7 +42,7 @@ public class InterestServiceImpl implements InterestService {
 
     @Override
     public void save(InterestCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Interest interest = this.interestMapper.toInterest(dto);
         interest.setPortfolio(portfolio);
         this.interestRepository.save(interest);
