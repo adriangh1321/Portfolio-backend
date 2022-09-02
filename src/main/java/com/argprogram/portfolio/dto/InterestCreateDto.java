@@ -1,7 +1,6 @@
 package com.argprogram.portfolio.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +16,4 @@ public class InterestCreateDto {
     @NullOrNotBlank
     private String image;
 
-    @NotNull
-    private Long idPortfolio;
-
-   
 }

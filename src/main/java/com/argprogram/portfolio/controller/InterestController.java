@@ -1,8 +1,6 @@
 
 package com.argprogram.portfolio.controller;
 
-import com.argprogram.portfolio.dto.ExperienceCreateDto;
-import com.argprogram.portfolio.dto.ExperienceDto;
 import com.argprogram.portfolio.dto.InterestCreateDto;
 import com.argprogram.portfolio.dto.InterestDto;
 import com.argprogram.portfolio.service.InterestService;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,30 +25,24 @@ public class InterestController {
     
     private final InterestService interestService;
     
+     @GetMapping("/me")
+    public ResponseEntity<List<InterestDto>> getMeByToken() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.interestService.getMeByToken());
+    }   
     
-    @GetMapping(params = "portfolioId")
-    public ResponseEntity<List<InterestDto>> getAllByPortfolioId(@RequestParam("portfolioId") Long portfolioId) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.interestService.getAllByPortfolioId(portfolioId));
-    }
-    
-    @GetMapping
-    public ResponseEntity<List<InterestDto>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(this.interestService.getAll());
-    }
-    
-    @PutMapping("/{id}")
+    @PutMapping("/me/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody @Valid  InterestDto dto){
         this.interestService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     
-    @PostMapping
+    @PostMapping("/me")
     public ResponseEntity<Void> save(@RequestBody @Valid InterestCreateDto dto){
         this.interestService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/me/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         this.interestService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

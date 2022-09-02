@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,29 +25,24 @@ public class ExperienceController {
 
     private final ExperienceService experienceService;
 
-    @GetMapping(params = "portfolioId")
-    public ResponseEntity<List<ExperienceDto>> getAllByPortfolioId(@RequestParam("portfolioId") Long portfolioId) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.experienceService.getAllByPortfolioId(portfolioId));
-    }
+    @GetMapping("/me")
+    public ResponseEntity<List<ExperienceDto>> getMeByToken() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.experienceService.getMeByToken());
+    } 
     
-    @GetMapping
-    public ResponseEntity<List<ExperienceDto>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(this.experienceService.getAll());
-    }
-    
-    @PutMapping("/{id}")
+    @PutMapping("/me/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id,@RequestBody @Valid  ExperiencePutDto dto){
         this.experienceService.update(id, dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     
-    @PostMapping
+    @PostMapping("/me")
     public ResponseEntity<Void> save(@RequestBody @Valid ExperienceCreateDto dto){
         this.experienceService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/me/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         this.experienceService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

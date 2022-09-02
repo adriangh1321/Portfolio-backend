@@ -1,22 +1,20 @@
 
 package com.argprogram.portfolio.service;
 
-import com.argprogram.portfolio.dto.EducationCreateDto;
 import com.argprogram.portfolio.dto.EducationDto;
+import com.argprogram.portfolio.dto.EducationPutDto;
 import java.util.List;
 
 
 public interface EducationService {
-    
-    EducationDto getById(Long id);
+       
+    List<EducationDto> getMeByToken();
     
     List<EducationDto> getAllByPortfolioId(Long id);
+      
+    void update(Long id,EducationPutDto dto);
     
-    List<EducationDto> getAll();
-    
-    void update(Long id,EducationDto dto);
-    
-    void save(EducationCreateDto dto);
+    void save(EducationDto dto);
     
     void delete(Long id);
 }

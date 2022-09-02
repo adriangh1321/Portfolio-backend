@@ -1,7 +1,8 @@
 package com.argprogram.portfolio.service.impl;
 
-import com.argprogram.portfolio.dto.EducationCreateDto;
 import com.argprogram.portfolio.dto.EducationDto;
+import com.argprogram.portfolio.dto.EducationPutDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.EducationMapper;
 import com.argprogram.portfolio.model.Education;
 import com.argprogram.portfolio.model.Portfolio;
@@ -25,12 +26,12 @@ public class EducationServiceImpl implements EducationService {
     private final PortfolioService portfolioService;
 
     @Override
-    public EducationDto getById(Long id) {
-        EducationDto dto = this.educationRepository.findById(id)
+    public List<EducationDto> getMeByToken() {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        List<EducationDto> dtos = this.educationRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.educationMapper.toEducationDto(entity))
-                .orElseThrow();
-        return dto;
-
+                .collect(Collectors.toList());
+        return dtos;
     }
 
     @Override
@@ -42,28 +43,23 @@ public class EducationServiceImpl implements EducationService {
     }
 
     @Override
-    public void save(EducationCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+    public void save(EducationDto dto) {
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Education education = this.educationMapper.toEducation(dto);
         education.setPortfolio(portfolio);
         this.educationRepository.save(education);
     }
 
     @Override
-    public List<EducationDto> getAll() {
-        return this.educationRepository.findAll().stream()
-                .map(entity -> this.educationMapper.toEducationDto(entity))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void delete(Long id) {
-        this.educationRepository.findById(id).ifPresent(this.educationRepository::delete);
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.educationRepository.findByEducationIdAndPortfolioId(id, portfolioId).ifPresent(this.educationRepository::delete);
     }
 
     @Override
-    public void update(Long id, EducationDto dto) {
-        this.educationRepository.findById(id)
+    public void update(Long id, EducationPutDto dto) {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.educationRepository.findByEducationIdAndPortfolioId(id, portfolioId)
                 .map(education -> {
                     education.setTitle(dto.getTitle());
                     education.setInstitute(dto.getInstitute());
@@ -79,7 +75,7 @@ public class EducationServiceImpl implements EducationService {
 
                     return this.educationRepository.save(education);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Education with id "+id+" was not found in your portfolio"));
     }
 
 }

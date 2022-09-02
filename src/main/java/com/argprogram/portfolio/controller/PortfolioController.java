@@ -29,24 +29,20 @@ public class PortfolioController {
 
     private final PortfolioService portfolioService;
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<PortfolioDto> getOneById(@PathVariable Long id) {
-//        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getById(id));
-//    }
     @GetMapping("/me")
     public ResponseEntity<PortfolioDto> getMePortfolio() {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getMeByToken());
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Void> patchBasicInfo(@PathVariable Long id, @RequestBody @Valid PortfolioBasicPatchDto dto) {
-        this.portfolioService.patchBasicInfo(id, dto);
+    @PatchMapping("/me")
+    public ResponseEntity<Void> patchBasicInfo(@RequestBody @Valid PortfolioBasicPatchDto dto) {
+        this.portfolioService.patchBasicInfo(dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PatchMapping("/{id}/aboutMe")
-    public ResponseEntity<Void> patchAboutMe(@PathVariable Long id, @RequestBody @Valid PortfolioAboutDto dto) {
-        this.portfolioService.patchAboutMe(id, dto);
+    @PatchMapping("/me/aboutMe")
+    public ResponseEntity<Void> patchAboutMe( @RequestBody @Valid PortfolioAboutDto dto) {
+        this.portfolioService.patchAboutMe(dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -56,25 +52,20 @@ public class PortfolioController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping("/{id}/aboutMe")
-    public ResponseEntity<PortfolioAboutDto> getAboutMe(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getAboutMe(id));
+    @GetMapping("/me/aboutMe")
+    public ResponseEntity<PortfolioAboutDto> getAboutMe() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getAboutMe());
     }
 
-    @GetMapping("/{id}/basicInfo")
-    public ResponseEntity<PortfolioBasicDto> getBasicInfo(@PathVariable Long id) {
-        return ResponseEntity.ok(this.portfolioService.getBasicInfo(id));
+    @GetMapping("/me/basicInfo")
+    public ResponseEntity<PortfolioBasicDto> getBasicInfo() {
+        return ResponseEntity.ok(this.portfolioService.getBasicInfo());
     }
 
     @GetMapping("/me/banner")
     public ResponseEntity<PortfolioBannerDto> getBanner() {
         return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getBanner());
     }
-
-//    @GetMapping()
-//    public ResponseEntity<List<PortfolioProfileDto>> getProfiles() {
-//        return ResponseEntity.status(HttpStatus.OK).body(this.portfolioService.getPortfolioProfiles());
-//    }
 
     @GetMapping("/user/{nickname}")
     public ResponseEntity<PortfolioDto> getByUserNickname(@PathVariable String nickname) {

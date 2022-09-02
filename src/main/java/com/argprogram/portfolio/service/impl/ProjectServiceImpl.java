@@ -2,6 +2,7 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.ProjectCreateDto;
 import com.argprogram.portfolio.dto.ProjectDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.ProjectMapper;
 import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.model.Project;
@@ -25,11 +26,12 @@ public class ProjectServiceImpl implements ProjectService {
     private final PortfolioService portfolioService;
 
     @Override
-    public ProjectDto getById(Long id) {
-        ProjectDto dto = this.projectRepository.findById(id)
+    public List<ProjectDto> getMeByToken() {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        List<ProjectDto> dtos = this.projectRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.projectMapper.toProjectDto(entity))
-                .orElseThrow();
-        return dto;
+                .collect(Collectors.toList());
+        return dtos;
     }
 
     @Override
@@ -42,27 +44,22 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void save(ProjectCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Project project = this.projectMapper.toProject(dto);
         project.setPortfolio(portfolio);
         this.projectRepository.save(project);
     }
 
     @Override
-    public List<ProjectDto> getAll() {
-        return this.projectRepository.findAll().stream()
-                .map(entity -> this.projectMapper.toProjectDto(entity))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void delete(Long id) {
-        this.projectRepository.findById(id).ifPresent(this.projectRepository::delete);
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.projectRepository.findByProjectIdAndPortfolioId(id, portfolioId).ifPresent(this.projectRepository::delete);
     }
 
     @Override
     public void update(Long id, ProjectDto dto) {
-        this.projectRepository.findById(id)
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.projectRepository.findByProjectIdAndPortfolioId(id, portfolioId)
                 .map(project -> {
                     project.setName(dto.getName());
                     project.setDescription(dto.getDescription());
@@ -71,13 +68,13 @@ public class ProjectServiceImpl implements ProjectService {
                     project.setStartDate(LocalDate.parse(dto.getStartDate(), formatter));
                     if (dto.getEndDate() == null) {
                         project.setEndDate(null);
-                    }else{
+                    } else {
                         project.setEndDate(LocalDate.parse(dto.getEndDate(), formatter));
                     }
                     project.setUrl(dto.getUrl());
 
                     return this.projectRepository.save(project);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Project with id " + id + " was not found in your portfolio"));
     }
 }

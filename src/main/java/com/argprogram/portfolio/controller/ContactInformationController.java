@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +20,9 @@ public class ContactInformationController {
     
     private final ContactInformationService contactInformationService;
     
-//    @GetMapping("{id}")
-//    public ResponseEntity<ContactInformationDto> getById(@PathVariable Long id) {
-//        return ResponseEntity.status(HttpStatus.OK).body(this.contactInformationService.getById(id));
-//    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid ContactInformationDto dto) {
-        this.contactInformationService.update(id, dto);
+    @PutMapping("/me")
+    public ResponseEntity<Void> update(@RequestBody @Valid ContactInformationDto dto) {
+        this.contactInformationService.update(dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     

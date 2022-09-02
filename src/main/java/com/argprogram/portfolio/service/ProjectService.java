@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface ProjectService {
 
-    ProjectDto getById(Long id);
+    List<ProjectDto> getMeByToken();
 
     List<ProjectDto> getAllByPortfolioId(Long id);
-
-    List<ProjectDto> getAll();
 
     void update(Long id, ProjectDto dto);
 

@@ -1,7 +1,7 @@
 package com.argprogram.portfolio.service.impl;
 
-import com.argprogram.portfolio.dto.SkillCreateDto;
 import com.argprogram.portfolio.dto.SkillDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.SkillMapper;
 import com.argprogram.portfolio.model.Portfolio;
 import com.argprogram.portfolio.model.Skill;
@@ -22,11 +22,12 @@ public class SkillServiceImpl implements SkillService {
     private final PortfolioService portfolioService;
 
     @Override
-    public SkillDto getById(Long id) {
-        SkillDto dto = this.skillRepository.findById(id)
+    public List<SkillDto> getMeByToken() {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        List<SkillDto> dtos = this.skillRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.skillMapper.toSkillDto(entity))
-                .orElseThrow();
-        return dto;
+                .collect(Collectors.toList());
+        return dtos;
     }
 
     @Override
@@ -38,28 +39,23 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public void save(SkillCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+    public void save(SkillDto dto) {
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Skill skill = this.skillMapper.toSkill(dto);
         skill.setPortfolio(portfolio);
         this.skillRepository.save(skill);
     }
 
     @Override
-    public List<SkillDto> getAll() {
-        return this.skillRepository.findAll().stream()
-                .map(entity -> this.skillMapper.toSkillDto(entity))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void delete(Long id) {
-        this.skillRepository.findById(id).ifPresent(this.skillRepository::delete);
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.skillRepository.findBySkillIdAndPortfolioId(id, portfolioId).ifPresent(this.skillRepository::delete);
     }
 
     @Override
     public void update(Long id, SkillDto dto) {
-        this.skillRepository.findById(id)
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.skillRepository.findBySkillIdAndPortfolioId(id, portfolioId)
                 .map(skill -> {
                     skill.setType(dto.getType());
                     skill.setName(dto.getName());
@@ -67,7 +63,7 @@ public class SkillServiceImpl implements SkillService {
 
                     return this.skillRepository.save(skill);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Skill with id " + id + " was not found in your portfolio"));
     }
 
 }

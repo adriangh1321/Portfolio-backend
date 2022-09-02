@@ -2,12 +2,10 @@ package com.argprogram.portfolio.service.impl;
 
 import com.argprogram.portfolio.dto.InterestCreateDto;
 import com.argprogram.portfolio.dto.InterestDto;
-import com.argprogram.portfolio.dto.SkillCreateDto;
-import com.argprogram.portfolio.dto.SkillDto;
+import com.argprogram.portfolio.exception.NotFoundException;
 import com.argprogram.portfolio.mapper.InterestMapper;
 import com.argprogram.portfolio.model.Interest;
 import com.argprogram.portfolio.model.Portfolio;
-import com.argprogram.portfolio.model.Skill;
 import com.argprogram.portfolio.repository.InterestRepository;
 import com.argprogram.portfolio.service.InterestService;
 import com.argprogram.portfolio.service.PortfolioService;
@@ -25,12 +23,12 @@ public class InterestServiceImpl implements InterestService {
     private final PortfolioService portfolioService;
 
     @Override
-    public InterestDto getById(Long id) {
-        InterestDto dto = this.interestRepository.findById(id)
+    public List<InterestDto> getMeByToken() {
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        List<InterestDto> dtos = this.interestRepository.findAllByPortfolioId(portfolioId).stream()
                 .map(entity -> this.interestMapper.toInterestDto(entity))
-                .orElseThrow();
-        return dto;
-
+                .collect(Collectors.toList());
+        return dtos;
     }
 
     @Override
@@ -44,32 +42,27 @@ public class InterestServiceImpl implements InterestService {
 
     @Override
     public void save(InterestCreateDto dto) {
-        Portfolio portfolio = this.portfolioService.getPortfolioById(dto.getIdPortfolio());
+        Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
         Interest interest = this.interestMapper.toInterest(dto);
         interest.setPortfolio(portfolio);
         this.interestRepository.save(interest);
     }
 
     @Override
-    public List<InterestDto> getAll() {
-        return this.interestRepository.findAll().stream()
-                .map(entity -> this.interestMapper.toInterestDto(entity))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void delete(Long id) {
-        this.interestRepository.findById(id).ifPresent(this.interestRepository::delete);
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.interestRepository.findByInterestIdAndPortfolioId(id, portfolioId).ifPresent(this.interestRepository::delete);
     }
 
     @Override
     public void update(Long id, InterestDto dto) {
-        this.interestRepository.findById(id)
+        Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
+        this.interestRepository.findByInterestIdAndPortfolioId(id, portfolioId)
                 .map(interest -> {
                     interest.setName(dto.getName());
                     interest.setImage(dto.getImage());
                     return this.interestRepository.save(interest);
                 })
-                .orElseThrow();
+                .orElseThrow(() -> new NotFoundException("Interest with id " + id + " was not found in your portfolio"));
     }
 }
