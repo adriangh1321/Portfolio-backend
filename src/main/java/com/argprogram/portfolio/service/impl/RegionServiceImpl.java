@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,12 +19,14 @@ public class RegionServiceImpl implements RegionService {
     private final RegionRepository regionRepository;
     private final RegionMapper regionMapper;
 
+    @Transactional(readOnly=true)
     @Override
     public Region getById(Long id) {
         
         return this.regionRepository.findById(id).orElseThrow(() -> new NotFoundException("Region not found"));
     }
-
+    
+    @Transactional(readOnly=true)
     @Override
     public List<RegionListDto> getAllByCountryId(Long countryId) {
 

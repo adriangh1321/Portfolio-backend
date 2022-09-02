@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectMapper projectMapper;
     private final PortfolioService portfolioService;
 
+    @Transactional(readOnly=true)
     @Override
     public List<ProjectDto> getMeByToken() {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
@@ -34,6 +36,7 @@ public class ProjectServiceImpl implements ProjectService {
         return dtos;
     }
 
+    @Transactional(readOnly=true)
     @Override
     public List<ProjectDto> getAllByPortfolioId(Long id) {
         List<ProjectDto> dtos = this.projectRepository.findAllByPortfolioId(id).stream()
@@ -42,6 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
         return dtos;
     }
 
+    @Transactional
     @Override
     public void save(ProjectCreateDto dto) {
         Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
@@ -50,12 +54,14 @@ public class ProjectServiceImpl implements ProjectService {
         this.projectRepository.save(project);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
         this.projectRepository.findByProjectIdAndPortfolioId(id, portfolioId).ifPresent(this.projectRepository::delete);
     }
 
+    @Transactional
     @Override
     public void update(Long id, ProjectDto dto) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();

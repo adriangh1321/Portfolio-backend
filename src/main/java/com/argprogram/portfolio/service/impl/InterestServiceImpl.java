@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,7 @@ public class InterestServiceImpl implements InterestService {
     private final InterestMapper interestMapper;
     private final PortfolioService portfolioService;
 
+    @Transactional(readOnly=true)
     @Override
     public List<InterestDto> getMeByToken() {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
@@ -31,6 +33,7 @@ public class InterestServiceImpl implements InterestService {
         return dtos;
     }
 
+    @Transactional(readOnly=true)
     @Override
     public List<InterestDto> getAllByPortfolioId(Long id) {
         List<InterestDto> dtos = this.interestRepository.findAllByPortfolioId(id).stream()
@@ -40,6 +43,7 @@ public class InterestServiceImpl implements InterestService {
 
     }
 
+    @Transactional
     @Override
     public void save(InterestCreateDto dto) {
         Portfolio portfolio = this.portfolioService.getPortfolioByUserLogged();
@@ -48,12 +52,14 @@ public class InterestServiceImpl implements InterestService {
         this.interestRepository.save(interest);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();
         this.interestRepository.findByInterestIdAndPortfolioId(id, portfolioId).ifPresent(this.interestRepository::delete);
     }
 
+    @Transactional
     @Override
     public void update(Long id, InterestDto dto) {
         Long portfolioId = this.portfolioService.getPortfolioByUserLogged().getId();

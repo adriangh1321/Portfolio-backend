@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +20,13 @@ public class CountryServiceImpl implements CountryService {
     private final CountryRepository countryRepository;
     private final CountryMapper countryMapper;
 
+    @Transactional(readOnly=true)
     @Override
     public Country getById(Long id) {
         return this.countryRepository.findById(id).orElseThrow(() -> new NotFoundException("Country not found"));
     }
 
+    @Transactional(readOnly=true)
     @Override
     public List<CountryDto> getAll() {
         return this.countryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))
