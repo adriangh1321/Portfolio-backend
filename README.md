@@ -1,5 +1,5 @@
 # Portfolio-backend
-Proyecto final backend para Argentina Programa #YoProgramo
+Proyecto final backend para Argentina Programa #YoProgramo. Desarrollado con Java JDK 11 y MySQL
 
 # Descripción
 La API permite registrar un usuario, iniciar sesión con el mismo y agregar y editar informacion personal como estudios , experiencia laboral , proyectos, etc con el fín de compartir su perfil laboral para buscar empleo.
