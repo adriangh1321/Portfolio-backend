@@ -34,6 +34,11 @@ cd target
 ```
 java -jar portfolio-0.0.1-SNAPSHOT.jar
 ```
+6. Opcionalmente también puede ejecutar la aplicacion con el comando:
+```
+mvnw spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.username=root --spring.datasource.password=root"
+```
+Solo reemplaze root con el username y password de su gestor de base de datos mysql.
 
 6. Para probar la aplicación puede utilizar postman y acceder al end-point http://localhost:8080/v1/portfolios/user/gustavo92
 Esto deberia traer la informacion del usuario cargado por defecto
