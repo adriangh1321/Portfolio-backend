@@ -41,7 +41,8 @@ Esto deberia traer la informacion del usuario cargado por defecto
 Puede registrar un usuario nuevo en la url http://localhost:8080/v1/auth/register enviando un json con el siguiente formato:
 
 ```
-"email":"miusuario@email.com",
+"nickname":"usuario99",
+"email":"usuario99@email.com",
 "password":"12345678"
 ```
 
